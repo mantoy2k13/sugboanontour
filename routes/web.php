@@ -25,18 +25,24 @@ Route::get('/', function () {
 });
 // Auth::routes();
 
-Route::get('files-upload', [MultiFileUploadController::class, 'index']);
 
+
+    Route::get('dashboard', [CustomAuthController::class, 'dashboard'])->middleware('auth'); 
+    Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
+    Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+    Route::get('files-upload', [MultiFileUploadController::class, 'index']);
+        //add more Routes here
+    Route::post('save-multiple-files', [MultiFileUploadController::class, 'store']);
+
+
+Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 
 Route::get('tourpackage/{id}', [MultiFileUploadController::class, 'tourpackage']);
-Route::post('save-multiple-files', [MultiFileUploadController::class, 'store']);
+
 Route::get('hotels', [HotelController::class, 'index']);
 
 /*auth and login register*/
-Route::get('dashboard', [CustomAuthController::class, 'dashboard']); 
-Route::get('login', [CustomAuthController::class, 'index'])->name('login');
-Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
-Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
@@ -45,3 +51,6 @@ Route::post('booknow', [BookingController::class, 'store']);
 Route::resource('cars', CarsAjaxController::class);
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
+
+// deleting tour packages
+Route::delete('tours/{id}', [MultiFileUploadController::class, 'delete'])->name('tours.delete');

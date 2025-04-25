@@ -16,6 +16,7 @@ class CarsAjaxController extends Controller
     public function index(Request $request)
     {
         $tours = DB::table('files')->where('category', 1)->get();
+        
        return view('pages.carsajax',compact('tours'));
     }
 
@@ -24,9 +25,10 @@ class CarsAjaxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create( Request $request)
     {
-        echo 'Create';
+        echo 'This is creating form pages';
+        
     }
 
     /**

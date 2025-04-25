@@ -33,5 +33,11 @@
     <!-- 2000 56095 787 promisory note-->
         </div>
       </div>
+      @push('head')
+<!-- Styles -->
+
+<script src="{{ asset('js/components/pizza.js')}}"></script>
+@endpush
 @endsection
+
  

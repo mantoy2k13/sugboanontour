@@ -10,6 +10,7 @@ class HotelController extends Controller
     public function index()
     {
         $tours = DB::table('files')->where('category', 1)->get();
+        
         return view('pages.hotel', compact('tours'));
     }
 }

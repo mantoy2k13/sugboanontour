@@ -28,7 +28,7 @@ class CustomAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')->withSuccess('Signed in');
+            return redirect()->intended('dashboard')->withSuccess('Welcome');
         }
 
         return redirect("login")->withSuccess('Login details are not valid');
@@ -52,7 +52,7 @@ class CustomAuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
 
-        return redirect("dashboard")->withSuccess('You have signed-in');
+        return redirect("dashboard")->withSuccess('Welcome to car rental');
     }
 
     public function create(array $data)
@@ -60,13 +60,14 @@ class CustomAuthController extends Controller
       return User::create([
         'name' => $data['name'],
         'email' => $data['email'],
-        'password' => Hash::make($data['password']),
-      ])->withSuccess('Welcome to our page');
+        'password' => Hash::make($data['password'])
+      ]
+      )->withSuccess('Welcome to our page');
     }
 
     public function dashboard()
     {
-        if(Auth::check() || Auth($login)){
+        if(Auth::check() ){
             $tour_packages = DB::table('files')->get();
             return view('auth.dashboard', ['tours' => $tour_packages]);
         }
@@ -78,6 +79,6 @@ class CustomAuthController extends Controller
         Session::flush();
         Auth::logout();
 
-        return Redirect('/');
+        return redirect('/');
     }
 }

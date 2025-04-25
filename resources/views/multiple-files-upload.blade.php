@@ -7,10 +7,8 @@
         {{ session('status') }}
     </div>
   @endif
-    <?php 
-        $user_id = Auth::user()->role;
-    ?>
-    @if($user_id == 1)
+    
+  
       <h2 class="text-center">Upload Itinerary Package </h2>
     <div class="col-md-8 block-9 mb-md-5"> 
         <form name="save-multiple-files" method="POST"  action="{{ url('save-multiple-files') }}"  enctype="multipart/form-data" class="bg-light p-5 contact-form">
@@ -68,8 +66,7 @@
             </div>     
         </form>
     </div>
-    @else 
-        <h1>You don't Have access here, Sorry</h1>
-    @endif
+    
+    
 </div>  
 @endsection

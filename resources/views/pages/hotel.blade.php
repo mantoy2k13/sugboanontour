@@ -11,22 +11,23 @@
         </div>
         <div class="row d-flex">
           
-          @foreach($tours as $tour)
-          <?php 
-            $img = json_decode($tour->name, true);
-          ?>
-            
-          <div class="col-md-3 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="{{ url('tourpackage')}}/{{$tour->id}}" class="block-20" style="background-image: url('files/{{$img[0] }}');">
-              </a>
-              <div class="text pt-4">
-                <h3 class="heading mt-2"><a href="{{ url('tourpackage')}}/{{$tour->id}}"> {{ $tour->title}}</a></h3>
-                <p><a href="{{ url('tourpackage')}}/{{$tour->id}}" class="btn btn-primary">View more</a></p>
+              @foreach($tours as $tour)
+              <?php 
+                $img = json_decode($tour->name, true);
+              ?>
+                
+              <div class="col-md-3 d-flex ftco-animate">
+                <div class="blog-entry justify-content-end">
+                  <a href="{{ url('tourpackage')}}/{{$tour->id}}" class="block-20" style="background-image: url('files/{{$img[0] }}');">
+                  </a>
+                  <div class="text pt-4">
+                    <h3 class="heading mt-2"><a href="{{ url('tourpackage')}}/{{$tour->id}}"> {{ $tour->title}}</a></h3>
+                    <p><a href="{{ url('tourpackage')}}/{{$tour->id}}" class="btn btn-primary">View more</a></p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          @endforeach
+              @endforeach
+          
         
 
           <!-- 
