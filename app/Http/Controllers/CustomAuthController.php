@@ -13,6 +13,7 @@ use Illuminate\View\View;
 class CustomAuthController extends Controller
 {
 
+    
     public function index()
     {
         return view('auth.login');
@@ -28,10 +29,13 @@ class CustomAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')->withSuccess('Welcome');
+            return redirect()->intended('dashboard')->withSuccess('Welcome, Cebu Car BNB');
+        }
+        else{
+            return redirect("login")->withSuccess('Login details are not valid');
         }
 
-        return redirect("login")->withSuccess('Login details are not valid');
+        
     }
 
     public function registration()

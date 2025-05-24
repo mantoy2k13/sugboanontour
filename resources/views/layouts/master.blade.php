@@ -13,7 +13,7 @@
   <meta name="author" content="Daryl Bargamento">
   <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Sugboanon Car rental Travel & Tours</title>
+  <title>Cebu car BNB rentals</title>
 
   @include('partials.styles')
 </head>

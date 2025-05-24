@@ -10,7 +10,9 @@
                 @if(session('success'))
                     <h1>{{session('success')}}</h1>
                 @endif
-            <div class='flex'></div>
+            <div class='flex'>
+                <a href="{{url('/cars')}}" class="btn btn-primary"> Add Cars</a>      
+            </div>
         </div>
     </div>
     

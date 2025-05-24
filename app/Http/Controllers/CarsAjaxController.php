@@ -37,40 +37,36 @@ class CarsAjaxController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store(Request $request)
     {
-        echo 'This is adding';
-        return 'H';
-        // $this->validate($request, [
-        //     'filenames' => 'required',
-        //     'filenames.*' => 'image',
-        //     'details' => 'required',
-        //     'category' => 'required',
-        //     'title' => 'required',
-        //     'rate' => 'required'
-        // ]);
 
-        // $files = [];
-        // if($request->hasfile('filenames'))
-        // {
-        //     foreach($request->file('filenames') as $file)
-        //     {
-        //         $name = time().rand(1,100).'.'.$file->extension();
-        //         $file->move(public_path('files'), $name);  
-        //         $files[] = $name;  
-        //     }
-        // }
-        
-        // $file= new Cars();
-        // $file->name = json_encode($files);
-        // $file->path = '1';
-        // $file->rate = $request->input('rate');
-        // $file->details = $request->input('details');
-        // $file->category = $request->input('category');
-        // $file->title = $request->input('title');
-        // $file->save();
-        
-        // return back()->with('status', 'Data Your files has been successfully added');
+        echo 'The next step store cars';
+
+          $this->validate($request, [
+            'filenames' => 'required',
+            'filenames.*' => 'image',
+            'details' => 'required',
+            'category' => 'required',
+            'title' => 'required',
+            'rate' => 'required'
+            ]);
+        //   $request->validate([
+        //     'vehicle_name' => 'required|string|max:255',
+        //     ]);
+
+        //     $car = new Cars();
+        //     $car->user_id = $request->input('user_id');
+        //     $car->vehicle_name = $request->input('vehicle_name');
+        //     $car->user_id = $request->input('vehicle_model');
+        //     $car->user_id = $request->input('book_date');
+        //     $car->user_id = $request->input('location');
+        //     $car->user_id = $request->input('vehicle_type');
+        //     $car->user_id = $request->input('book_status');
+        //     $car->user_id = $request->input('driver_status');
+        //     $car->save();
+
+        //     return back()->with('success', 'Item added successfully!');
+            
     }
 
     /**
@@ -81,7 +77,7 @@ class CarsAjaxController extends Controller
      */
     public function show(Cars $cars)
     {
-        //
+        echo 'testing';
     }
 
     /**
