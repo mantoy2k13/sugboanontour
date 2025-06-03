@@ -36,8 +36,8 @@
             	<div class="block-23 mb-3">
 	              <ul>
 	                <li><span class="icon icon-map-marker"></span><span class="text">Jones avenue Cebu city, 6000</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">0915-097-1513</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">sogboanontour@gmail.com</span></a></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">0915-097-****</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">cebucarbnb@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>

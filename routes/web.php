@@ -31,11 +31,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('files-upload', [MultiFileUploadController::class, 'index']);
         //add more Routes here
     Route::post('save-multiple-files', [MultiFileUploadController::class, 'store']);
-    Route::resource('cars', CarsAjaxController::class);    
+    Route::get('cars', [CarsAjaxController::class, 'index']); 
+    Route::post('cars-store', [CarsAjaxController::class, 'store']);
     Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+    Route::delete('cardelete/{id}', [CarsAjaxController::class, 'delete'])->name('cars.delete');
     
 });
 
+Route::get('findcars', [CarsAjaxController::class, 'findcars']); 
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 

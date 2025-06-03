@@ -19,6 +19,13 @@ class Cars extends Model
         'location',
         'vehicle_type',
         'book_status',
-        'driver_status'
+        'driver_status',
+        'rate',
+        'phone_number'
     ];
+
+     public function setFilenamesAttribute($value)
+    {
+        $this->attributes['filenames'] = json_encode($value);
+    }
 }

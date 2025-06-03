@@ -63,6 +63,8 @@ class MultiFileUploadController extends Controller
         $imgs_unlink = json_decode($data->name, true);
         
         foreach($imgs_unlink as $imgunlink){
+
+            
             $path = public_path().'/files/'.$imgunlink;
             if (file_exists($path)) {
                 unlink($path);

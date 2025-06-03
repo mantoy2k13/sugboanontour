@@ -58,11 +58,9 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fff; }
-.orange{
-  color:#FF5B02;
-}
+
 .black{
-  color:#111 !important;
+  color:#FF5B02 !important;
 }
 
 [tabindex="-1"]:focus {
@@ -5413,7 +5411,8 @@ button.bg-light:focus {
   background-color: #dae0e5 !important; }
 
 .bg-dark {
-  background-color: #FF5800 !important; }
+  background-color: #FC5E00 !important; 
+}
 
 a.bg-dark:hover, a.bg-dark:focus,
 button.bg-dark:hover,
@@ -7997,7 +7996,9 @@ button.bg-dark:focus {
 
 .text-white {
   color: #fff !important; }
-
+.text-default{
+  color:#FC5E00 !important;
+}
 .text-primary {
   color: #007bff !important; }
 
@@ -8195,12 +8196,12 @@ h1, h2, h3, h4, h5,
     .ftco-navbar-light .navbar-nav {
       padding-bottom: 10px; } }
   .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
-    font-size: 17px;
+    font-size: 14px;
     padding-top: .9rem;
     padding-bottom: .9rem;
     padding-left: 15px;
     padding-right: 15px;
-    color: #FFF;
+    color: #FFF ;
     font-weight: 700;
     opacity: 1 !important; }
     .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
@@ -9966,4 +9967,10 @@ span.messagealert {
   flex-direction: column;
   flex-wrap: wrap;
   color:red;
+}
+
+h3.available{
+    position: absolute;
+    top: 25%;
+    left: 30%;
 }

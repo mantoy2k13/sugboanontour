@@ -6,17 +6,76 @@
         <div class="row">
                 <?php 
                     $id = (Auth::check()) ? Auth::user()->id :  0 ;
+					$name = (Auth::check()) ? Auth::user()->name : 'Juan Dela Cruaz';
                 ?>
-                @if(session('success'))
-                    <h1>{{session('success')}}</h1>
+				<div class="col-md-4" >
+					<span class='messagealert' id="success"></span>
+				</div>
+                  @if(session('success'))
+                    <div class="col-md-4 ">
+                        <div class='alert alert-success'>
+                            {{ session('success') }}
+                        </div>
+                    </div>
                 @endif
-            <div class='flex'>
+            <span class='flex'>
                 <a href="{{url('/cars')}}" class="btn btn-primary"> Add Cars</a>      
-            </div>
+            </span>
         </div>
+		<div>
+				<h3 class='text-black'>Welcome, 
+						<span class='text-default text-lg'> {{$name}} </span>
+				</h3>
+				</div>	
+      
     </div>
-    
+       <!-- #region -->
 </section>
+
+
+		<section class="ftco-section bg-light">
+
+    	<div class="container">
+    		<div class="row">
+
+			@if(count($cars) > 0)
+			
+			@foreach($cars as $keycar => $car)
+				<?php 
+				$car_img = json_decode($car->img, true);
+				
+				?>
+				
+				<div class="col-md-4" id="car{{$car->id}}">
+    				<div class="car-wrap rounded ftco-animate">
+    					<div class="img rounded d-flex align-items-end" style="background-image: url('{{asset('files/'.$car_img[0])}}');">
+    					</div>
+    					<div class="text">
+    						<h2 class="mb-0 text-default"><a href="car-single.html" class='text-default'>{{$car->name}} </a></h2>
+    						<div class="d-flex mb-3">
+	    						<p><span class="cat">{{$car->model}}</span></p>
+	    						<p class="price ml-auto"> {{$car->rate}} <span>/day</span></p>
+								<p class='price'>Address: {{ucfirst($car->location)}} </p>
+    						</div>
+    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-danger py-2 mr-1" onclick="cardelete({{$car->id}})">Delete</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Set to avaiable</a>
+							</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Set to not available</a>
+							</p>
+    					</div>
+    				</div>
+    			</div>
+            @endforeach
+            @else
+                
+                    <h3 class="text-default">
+                        you dont have yet uploaded cars,.. please add car,
+                    </h3>
+                
+            @endif
+
+		</div>
+    		
+    	</div>
+    </section>
 @endsection
 
 @push('head')

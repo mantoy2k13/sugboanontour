@@ -41,7 +41,7 @@ class CustomAuthController extends Controller
     public function registration()
     {
 
-        return view('auth.registration', ['tours' => [] ]);
+        return view('auth.registration', ['tours' => [], 'cars' => [] ]); 
     }
 
     public function customRegistration(Request $request)
@@ -64,7 +64,7 @@ class CustomAuthController extends Controller
       return User::create([
         'name' => $data['name'],
         'email' => $data['email'],
-        'password' => Hash::make($data['password'])
+        'password' => Hash::make($data['password']) 
       ]
       )->withSuccess('Welcome to our page');
     }
@@ -72,8 +72,25 @@ class CustomAuthController extends Controller
     public function dashboard()
     {
         if(Auth::check() ){
+            $user_id = (Auth::user()->id) ? Auth::user()->id :  0 ; 
+            
             $tour_packages = DB::table('files')->get();
-            return view('auth.dashboard', ['tours' => $tour_packages]);
+
+            $cars = DB::table('cars as c')
+            ->select('c.vehicle_name as name',
+             'c.path as img',
+             'users.name as fullname',
+              'c.location as location',
+              'c.book_date as rate',
+              'c.year as year',
+              'c.vehicle_type as vehicle_type',
+              'c.model as model',
+              'c.id as id'
+              )
+            ->join('users', 'users.id', '=', 'c.user_id')
+            ->where('c.user_id', $user_id)
+            ->get()->toArray();
+            return view('auth.dashboard', ['tours' => $tour_packages, 'cars' => $cars]);
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');

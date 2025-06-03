@@ -15,9 +15,8 @@ class CarsAjaxController extends Controller
      */
     public function index(Request $request)
     {
-        $tours = DB::table('files')->where('category', 1)->get();
-        
-       return view('pages.carsajax',compact('tours'));
+
+       return view('pages.carsajax');
     }
 
     /**
@@ -27,7 +26,9 @@ class CarsAjaxController extends Controller
      */
     public function create( Request $request)
     {
-        echo 'This is creating form pages';
+         $tours = DB::table('files')->where('category', 1)->get();
+        
+       return view('pages.carsajax',compact('tours'));
         
     }
 
@@ -39,34 +40,67 @@ class CarsAjaxController extends Controller
      */
     public function store(Request $request)
     {
+        
+        // dd($request->all());
 
-        echo 'The next step store cars';
 
           $this->validate($request, [
             'filenames' => 'required',
             'filenames.*' => 'image',
-            'details' => 'required',
-            'category' => 'required',
-            'title' => 'required',
-            'rate' => 'required'
-            ]);
-        //   $request->validate([
-        //     'vehicle_name' => 'required|string|max:255',
-        //     ]);
-
-        //     $car = new Cars();
-        //     $car->user_id = $request->input('user_id');
-        //     $car->vehicle_name = $request->input('vehicle_name');
-        //     $car->user_id = $request->input('vehicle_model');
-        //     $car->user_id = $request->input('book_date');
-        //     $car->user_id = $request->input('location');
-        //     $car->user_id = $request->input('vehicle_type');
-        //     $car->user_id = $request->input('book_status');
-        //     $car->user_id = $request->input('driver_status');
-        //     $car->save();
-
-        //     return back()->with('success', 'Item added successfully!');
+            'vehicle_name'       => 'required',
+            'model'              => 'required',
+            'year'               => 'required',
+            'location'           => 'required',
+            'book_date'          => 'required',
+            'vehicle_type'       => 'required',
+            // 'book_status'        => 'required'
             
+            
+            ]);
+        
+              $files = [];
+            if($request->hasfile('filenames'))
+            {
+                foreach($request->file('filenames') as $file)
+                {
+                    $name = time().rand(1,100).'.'.$file->extension();
+                    $file->move(public_path('files'), $name);  
+                    $files[] = $name;  
+                }
+            
+            }
+            $json_ncode = json_encode($files);
+            $car = new Cars();
+            $car->user_id = $request->input('user_id');
+            $car->vehicle_name = $request->input('vehicle_name');
+            $car->path = $json_ncode;
+            $car->model = $request->input('model');
+            $car->year = $request->input('year');
+            $car->book_date = $request->input('book_date'); /*temporary sa rate*/ 
+            $car->location = $request->input('location');
+            $car->vehicle_type = $request->input('vehicle_type');
+            $car->book_status = 1;
+            $car->driver_status = 1;
+            
+            $car->save();
+            
+            return redirect('/dashboard')->with('success', 'Cars added successfully!');
+            
+    }
+
+    public function findcars(Cars $cars){
+        $findcars = DB::table('cars as c')
+            ->select('c.vehicle_name as name',
+             'c.path as img',
+              'c.location as location',
+              'c.book_date as rate',
+              'c.year as year',
+              'c.vehicle_type as vehicle_type',
+              'c.model as model',
+              'c.id as id',
+              'c.book_status as book_status'
+              )->get()->toArray();
+            return view('pages.findcars', [ 'findcars' => $findcars]);
     }
 
     /**
@@ -77,7 +111,7 @@ class CarsAjaxController extends Controller
      */
     public function show(Cars $cars)
     {
-        echo 'testing';
+        echo 'testing pag sure oi';
     }
 
     /**
@@ -112,5 +146,28 @@ class CarsAjaxController extends Controller
     public function destroy(Cars $cars)
     {
         //
+    }
+
+    public function delete($id, Request $request ){
+
+        $data = Cars::find($id);
+        $imgs_unlink = json_decode($data->path, true);
+        
+        foreach($imgs_unlink as $imgunlink){
+
+            
+            $path = public_path().'/files/'.$imgunlink;
+            if (file_exists($path)) {
+                unlink($path);
+                
+                $mssg = "Deleted Cars Successfully ";
+            } else {
+                
+                $mssg = "Does not exists";
+            }
+        }
+      
+        $data->delete();
+        return response()->json(['success' => $mssg]);
     }
 }
