@@ -132,9 +132,17 @@ class CarsAjaxController extends Controller
      * @param  \App\Models\Cars  $cars
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cars $cars)
-    {
-        //
+    public function update(Request $request, $id)
+    {        
+        
+        $msg = ($request->input('book_status') == 1) ? 'set available was successfully' : 'set Not Avilable was successfully';
+        
+        if($request->has('id')){
+             Cars::find($request->input('id'))->update($request->all());
+            
+        }
+       
+        return response()->json(['success'=> $msg]);
     }
 
     /**
@@ -146,6 +154,10 @@ class CarsAjaxController extends Controller
     public function destroy(Cars $cars)
     {
         //
+    }
+
+    public function getvehicle($id, Request $request){
+        echo $id;
     }
 
     public function delete($id, Request $request ){

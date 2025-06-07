@@ -34,11 +34,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cars', [CarsAjaxController::class, 'index']); 
     Route::post('cars-store', [CarsAjaxController::class, 'store']);
     Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+    Route::post('car/update/{id}', [CarsAjaxController::class, 'update']);
     Route::delete('cardelete/{id}', [CarsAjaxController::class, 'delete'])->name('cars.delete');
     
 });
 
 Route::get('findcars', [CarsAjaxController::class, 'findcars']); 
+Route::get('vehicle/{id}', [CarsAjaxController::class, 'getvehicle']); 
+
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 

@@ -13,7 +13,7 @@
     //     );
     //     console.log('okay');
     // });
-
+ 
 
 
 
@@ -69,23 +69,65 @@ cardelete = (id, t) =>{
         --------------------------------------------*/
 
             if (confirm("Are you sure you want to delete this Car?") == true) {
+                
                 $.ajax({
-                    url: "/cardelete/"+id,
+                    url: '/cardelete/'+id,
                     type: 'DELETE',
                     dataType: 'json',
                     success: function(data) {
-                        $tr= $(t).closest("div");
+                        // $tr= $(t).closest("div");
 
                     
-                        $tr.find('car'+id).fadeOut(700, function () {
-                            $tr.remove();    
+                        // $tr.find('#car'+id).fadeOut(700, function () {
+                        //     $tr.remove();    
+                        // });
+                        $("#car"+id).fadeToggle(500, "swing",function(){
+                        this.remove();
                         });
                         $('.messagealert').text(data.success);                       
                         console.log(data);
                     }
                 });
-            }
                 
-       
+            }                
+}
+
+setavailable = (id, book_status) => {
+    
+    var message = '';
+    if(book_status == 1){
+        message = 'Are you sure you want to set to available';
+    }
+    else{
+        message = 'Are you sure you want to set to not available';
+    }
+    
+     $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        /*------------------------------------------
+        --------------------------------------------
+        When click user on Delete Button
+        --------------------------------------------
+        --------------------------------------------*/
+
+            if (confirm(message) == true) {
+               var id = id;
+               var book_status = book_status;
+                $.ajax({
+                    method:'POST',
+                     url: adminUrl+"/car/update/"+id,  
+                    dataType: 'JSON',
+                    data: {id,book_status},
+                    success: function(data) {
+                        $('.messagealert').text(data.success);                       
+                        console.log(data);
+                    }
+                });
+                
+        }              
 }
 

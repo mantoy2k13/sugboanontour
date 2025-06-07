@@ -29,10 +29,10 @@ class CustomAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')->withSuccess('Welcome, Cebu Car BNB');
+            return redirect()->intended('dashboard')->with('success','Welcome, Cebu Car BNB');
         }
         else{
-            return redirect("login")->withSuccess('Login details are not valid');
+            return redirect("login")->with('success','Incorrect password please try again...');
         }
 
         
@@ -56,7 +56,7 @@ class CustomAuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
 
-        return redirect("dashboard")->withSuccess('Welcome to car rental');
+        return redirect("dashboard")->with('success','Welcome to car rental');
     }
 
     public function create(array $data)
@@ -66,7 +66,7 @@ class CustomAuthController extends Controller
         'email' => $data['email'],
         'password' => Hash::make($data['password']) 
       ]
-      )->withSuccess('Welcome to our page');
+      )->redirect('/')->with('success','Welcome to our page');
     }
 
     public function dashboard()
@@ -85,7 +85,8 @@ class CustomAuthController extends Controller
               'c.year as year',
               'c.vehicle_type as vehicle_type',
               'c.model as model',
-              'c.id as id'
+              'c.id as id',
+              'c.book_status as book_status'
               )
             ->join('users', 'users.id', '=', 'c.user_id')
             ->where('c.user_id', $user_id)
