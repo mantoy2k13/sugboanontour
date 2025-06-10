@@ -9,8 +9,9 @@ class HotelController extends Controller
 {
     public function index()
     {
+        $title = 'Hotels';
         $tours = DB::table('files')->where('category', 1)->get();
         
-        return view('pages.hotel', compact('tours'));
+        return view('pages.hotel', compact('tours', 'title'));
     }
 }

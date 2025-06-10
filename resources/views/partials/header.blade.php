@@ -13,8 +13,9 @@
 	          <li class="nav-item active"><a href="{{url('/') }}" class="nav-link">Home</a></li>
 	          <li class="nav-item"><a href="{{url('hotels')}}" class="nav-link ">Hotels</a></li>
 	          <li class="nav-item"><a href="#" class="nav-link ">Services</a></li>
+			  <li class="nav-item"><a href="{{url('contact')}}" class="nav-link ">Contact</a></li>
 	          <li class="nav-item"><a href="{{url('findcars')}}" class="nav-link ">Find Cars</a></li>
-	          <li class="nav-item"><a href="tel:+63915 097 1513" class='nav-link'> 0915 097 1513</a> </li>
+	          <li class="nav-item"><a href="tel:+63915 097 1513" class='nav-link'><span class="icon-mobile-phone"></span> 0915 097 1513</a> </li>
 			  
 			  @if (Auth::check())
 			  <li class="nav-item">

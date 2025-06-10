@@ -25,7 +25,8 @@
 							$message_available = 'Booked';
 							$text_color = 'text-danger';
 						}
-												?>
+						$book_url = url('vehicle/'.$car->id);
+						?>
 							@if($car->book_status == 1)
 								<div class="col-md-4" id="car{{$car->id}}">
 									<div class="car-wrap rounded ftco-animate">
@@ -39,10 +40,11 @@
 											<div class="d-flex flex-column  mb-3">
 												<p class="font-weight-bolder"> Rate: {{$car->rate}} <span class='font-weight-light'> /
 														day</span></p>
-												<p class='text-black'><span class='font-weight-bolder'>Location:</span>
-													{{strtoupper($car->location)}} </p>
+												<p class='text-black'><span class="icon-map-o"></span>
+													{{strtoupper($car->location)}}
+												</p>
 											</div>
-											<p class="d-flex mb-0 d-block"><a href="{{url('vehicle/')}}/{{$car->id}}"
+											<p class="d-flex mb-0 d-block"><a href="{{$book_url}}"
 													class="btn btn-secondary py-2 ml-1">Book now</a>
 
 											</p>
@@ -65,18 +67,7 @@
 		</div>
 	</section>
 @endsection
-@section('script')
 
-	<script type="text/javascript">
-
-		setInterval(function () {
-			window.location.reload(1);
-		}, 50000);
-
-
-	</script>
-@endsection
-@yield('script')
 @push('head')
 
 

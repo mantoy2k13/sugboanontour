@@ -13,7 +13,7 @@
   <meta name="author" content="Daryl Bargamento">
   <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Cebu car BNB rentals</title>
+  <title> {{$title = ($title) ? $title : 'Cebu Car Bnb rentals'}}</title>
 
   @include('partials.styles')
 </head>

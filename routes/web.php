@@ -5,6 +5,7 @@ use App\Http\Controllers\MultiFileUploadController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\CarsAjaxController;
+use App\Http\Controllers\BookingVehicle;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\GoogleAuthController;
 
@@ -20,8 +21,8 @@ use App\Http\Controllers\GoogleAuthController;
 */
 
 Route::get('/', function () {
-    $homepage = 'homepage';
-    return view('welcome', compact('homepage'));
+    $title = 'CebuCarBnb';
+    return view('welcome', compact('title'));
 });
 // Auth::routes();
 
@@ -32,15 +33,17 @@ Route::middleware(['auth'])->group(function () {
         //add more Routes here
     Route::post('save-multiple-files', [MultiFileUploadController::class, 'store']);
     Route::get('cars', [CarsAjaxController::class, 'index']); 
+    Route::get('cars/edit/{id}', [CarsAjaxController::class, 'edit']); 
     Route::post('cars-store', [CarsAjaxController::class, 'store']);
     Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
     Route::post('car/update/{id}', [CarsAjaxController::class, 'update']);
+    Route::post('car/updateall', [CarsAjaxController::class, 'updateall']);
     Route::delete('cardelete/{id}', [CarsAjaxController::class, 'delete'])->name('cars.delete');
     
 });
 
 Route::get('findcars', [CarsAjaxController::class, 'findcars']); 
-Route::get('vehicle/{id}', [CarsAjaxController::class, 'getvehicle']); 
+Route::get('vehicle/{id}', [BookingVehicle::class, 'getvehicle']); 
 
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
@@ -51,7 +54,7 @@ Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 Route::get('tourpackage/{id}', [MultiFileUploadController::class, 'tourpackage']);
 
 Route::get('hotels', [HotelController::class, 'index']);
-
+Route::get('contact', [BookingVehicle::class, 'contact']);
 /*auth and login register*/
 
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
@@ -59,6 +62,7 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 
 
 Route::post('booknow', [BookingController::class, 'store']);
+
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);

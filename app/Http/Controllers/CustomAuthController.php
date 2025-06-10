@@ -16,7 +16,8 @@ class CustomAuthController extends Controller
     
     public function index()
     {
-        return view('auth.login');
+        $title = 'Login';
+        return view('auth.login', ['title' => $title]);
 
     }
 
@@ -32,7 +33,7 @@ class CustomAuthController extends Controller
             return redirect()->intended('dashboard')->with('success','Welcome, Cebu Car BNB');
         }
         else{
-            return redirect("login")->with('success','Incorrect password please try again...');
+            return redirect("login")->with('success','Incorrect password / or user does not exists please try again...');
         }
 
         
@@ -71,6 +72,7 @@ class CustomAuthController extends Controller
 
     public function dashboard()
     {
+        $title = 'Dashboard';
         if(Auth::check() ){
             $user_id = (Auth::user()->id) ? Auth::user()->id :  0 ; 
             
@@ -91,7 +93,7 @@ class CustomAuthController extends Controller
             ->join('users', 'users.id', '=', 'c.user_id')
             ->where('c.user_id', $user_id)
             ->get()->toArray();
-            return view('auth.dashboard', ['tours' => $tour_packages, 'cars' => $cars]);
+            return view('auth.dashboard', ['tours' => $tour_packages, 'cars' => $cars, 'title'=>$title]);
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');
