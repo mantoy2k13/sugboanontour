@@ -8,5 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class BookingModel extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','path', 'details', 'category'];
+    protected $fillable =
+    [
+        'id',
+        'car_id',
+        'pick_up_date',
+        'return_date',
+        'booking_status',
+        'client_location',
+        'phone_number',
+        'message',
+        'client_name',
+        'column1'
+    ];
+
 }

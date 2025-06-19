@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookingVehicleModel extends Model
+class BookingVehicle extends Model
 {
     use HasFactory;
-    protected $fillable = [
+    protected $fillable =
+    [
         'id',
         'car_id',
-        'location',
-        'phone_number',
         'pick_up_date',
         'return_date',
-        'message',
         'booking_status',
-        'subject',
-        'name_renter',
-        'email'
+        'client_location',
+        'phone_number',
+        'message',
+        'client_name',
+        'column1'
     ];
-    protected $table = 'my_custom_booking_vehicle_table';
+
 }

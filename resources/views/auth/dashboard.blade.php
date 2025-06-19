@@ -13,9 +13,10 @@
 				</div>
 				@if(session('success'))
 					<div class="col-md-8 ">
-						<div class='alert alert-success'>
+						<div class="alert alert-success" role="alert">
 							<p class='text-default'>{{ session('success') }}</p>
 						</div>
+						
 					</div>
 				@endif
 				<span class='flex'>

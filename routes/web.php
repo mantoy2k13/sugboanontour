@@ -22,7 +22,20 @@ use App\Http\Controllers\GoogleAuthController;
 
 Route::get('/', function () {
     $title = 'CebuCarBnb';
-    return view('welcome', compact('title'));
+     $findcars = DB::table('cars as c')
+            ->select(
+                'c.vehicle_name as name',
+                'c.path as img',
+                'c.location as location',
+                'c.book_date as rate',
+                'c.year as year',
+                'c.vehicle_type as vehicle_type',
+                'c.model as model',
+                'c.id as id',
+                'c.book_status as book_status'
+            )->where('book_status',1)
+            ->get();
+    return view('welcome', compact('title', 'findcars'));
 });
 // Auth::routes();
 
@@ -44,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('findcars', [CarsAjaxController::class, 'findcars']); 
 Route::get('vehicle/{id}', [BookingVehicle::class, 'getvehicle']); 
-
+Route::post('bookingstore', [BookingVehicle::class, 'store']); 
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 

@@ -8197,14 +8197,17 @@ h1, h2, h3, h4, h5,
     .ftco-navbar-light .navbar-nav {
       padding-bottom: 10px; } }
   .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
-    font-size: 14px;
+    font-size: 15px;
     padding-top: .9rem;
     padding-bottom: .9rem;
     padding-left: 15px;
     padding-right: 15px;
     color: #FFF ;
     font-weight: 700;
-    opacity: 1 !important; }
+    opacity: 1 !important; 
+    font-family: "Poppins", Arial, sans-serif;
+    text-transform: capitalize;
+  }
     .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
       color: #FF5800; }
     @media (max-width: 991.98px) {
@@ -8578,7 +8581,7 @@ h1, h2, h3, h4, h5,
         -ms-border-radius: 50%;
         border-radius: 50%; }
       .owl-carousel .owl-dots .owl-dot.active {
-        background: #b3b3b3; }
+        background: #FF5800; }
   .owl-carousel:hover .owl-nav .owl-prev,
   .owl-carousel:hover .owl-nav .owl-next {
     opacity: 1; }

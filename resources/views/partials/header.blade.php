@@ -1,4 +1,4 @@
-<?php $currenturl = url()->full();?>
+
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('images/logo.f5060116.png')}}" style="width:220px;height:100px;"></a>
@@ -38,7 +38,7 @@
 	  </nav>
     <!-- END nav -->
 
-	@if($currenturl == url(''))
+{{-- 	
     <div class="hero-wrap ftco-degree-bg" style="background-image: url('{{ asset('images/bg_header.jpg') }}');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
@@ -52,5 +52,5 @@
           </div>
         </div>
       </div>
-    </div>
-	@endif
+    </div> --}}
+	

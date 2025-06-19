@@ -47,7 +47,9 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy; <?=Date('Y');?> All rights reserved | Cebu Car bnb </a>
+  Copyright &copy; <?=Date('Y');?> All rights reserved | Cebu Car bnb.. 
+  <span class='text-default'> developer Bargamento's Corp.</span>
+   </a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>

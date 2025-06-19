@@ -99,7 +99,8 @@ class CarsAjaxController extends Controller
                 'c.model as model',
                 'c.id as id',
                 'c.book_status as book_status'
-            )->get()->toArray();
+            )->where('book_status',1)
+            ->get()->toArray();
         return view('pages.findcars', ['findcars' => $findcars, 'title' => $title]);
     }
 
