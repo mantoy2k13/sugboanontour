@@ -22,13 +22,13 @@
 				<section class="ftco-section ftco-no-pt ">
 					<div class="d-flex justify-content-around">
 
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="carousel-car owl-carousel">
 								@foreach($js as $dis_img)
 									<div class="item">
 										<div class="car-wrap rounded ftco-animate">
 											<div class="img rounded d-flex align-items-end"
-												style="background-image: url('{{asset('files/' . $dis_img)}}');">
+												style="background-image: url('{{asset('files/' . $dis_img)}}');height:350px;">
 											</div>
 											<div class="text">
 												<h2 class="mb-0 "><a href="#" class='text-default'>{{$car[0]->name }}

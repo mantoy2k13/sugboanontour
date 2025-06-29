@@ -164,7 +164,12 @@ class CarsAjaxController extends Controller
 
     public function updateall(Request $request)
     {
-
+        
+         $this->validate($request, [
+            'filenames' => 'required',
+            'filenames.*' => 'image'
+            
+        ]);
         if ($request->has('car_id')) {
             // $car = Cars::find($request->car_id)->update($request->all());
             $files = [];

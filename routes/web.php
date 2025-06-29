@@ -34,7 +34,7 @@ Route::get('/', function () {
                 'c.id as id',
                 'c.book_status as book_status'
             )->where('book_status',1)
-            ->get();
+            ->paginate(10);
     return view('welcome', compact('title', 'findcars'));
 });
 // Auth::routes();
@@ -52,7 +52,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('car/update/{id}', [CarsAjaxController::class, 'update']);
     Route::post('car/updateall', [CarsAjaxController::class, 'updateall']);
     Route::delete('cardelete/{id}', [CarsAjaxController::class, 'delete'])->name('cars.delete');
-    
+    /*dashboard admin page */ 
+    Route::get('bookinglist',[BookingVehicle::class, 'bookinglist']);
+
 });
 
 Route::get('findcars', [CarsAjaxController::class, 'findcars']); 
@@ -68,6 +70,7 @@ Route::get('tourpackage/{id}', [MultiFileUploadController::class, 'tourpackage']
 
 Route::get('hotels', [HotelController::class, 'index']);
 Route::get('contact', [BookingVehicle::class, 'contact']);
+Route::post('addcontact',[BookingVehicle::class, 'addcontacts']);
 /*auth and login register*/
 
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
@@ -77,8 +80,6 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 Route::post('booknow', [BookingController::class, 'store']);
 
 
-Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
-Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
 
 // deleting tour packages
 Route::delete('tours/{id}', [MultiFileUploadController::class, 'delete'])->name('tours.delete');

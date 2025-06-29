@@ -79,7 +79,7 @@
 				
 			}
 		});
-		$('.carousel-testimony').owlCarousel({
+		$('.carousel-testimony').owlCarousel({  
 			center: true,
 			loop: true,
 			items:1,

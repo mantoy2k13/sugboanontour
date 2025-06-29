@@ -41,23 +41,24 @@ class CustomAuthController extends Controller
 
     public function registration()
     {
-
-        return view('auth.registration', ['tours' => [], 'cars' => [] ]); 
+        $title = 'Registration';
+        return view('auth.registration', ['tours' => [], 'cars' => [], 'title'=>$title ]); 
     }
 
     public function customRegistration(Request $request)
     {
         $request->validate([
             'name' => 'required',
+            'phone' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
 
         ]);
-
+        
         $data = $request->all();
         $check = $this->create($data);
 
-        return redirect("dashboard")->with('success','Welcome to car rental');
+        // return redirect("")->with('success','Welcome to car rental');
     }
 
     public function create(array $data)
@@ -65,9 +66,11 @@ class CustomAuthController extends Controller
       return User::create([
         'name' => $data['name'],
         'email' => $data['email'],
+        'phone' => $data['phone'],
+        'status' => $data['password'],
         'password' => Hash::make($data['password']) 
       ]
-      )->redirect('/')->with('success','Welcome to our page');
+      )->redirect('dashobard')->with('success','Welcome to our page');
     }
 
     public function dashboard()

@@ -10,8 +10,9 @@ class MultiFileUploadController extends Controller
 {
     public function index()
     {   
+        $title = 'Files upload';
         $categories = Categories::All();
-        return view('multiple-files-upload', compact('categories'));
+        return view('multiple-files-upload', compact('categories', 'title'));
         
     }
  
@@ -54,7 +55,8 @@ class MultiFileUploadController extends Controller
 
     public function tourpackage($id, Request $request){
         $trpackage = File::find($id);
-        return view('pages.tourpackage', compact('trpackage'));
+        $title = 'Accomodations';
+        return view('pages.tourpackage', compact('trpackage', 'title'));
     }
 
     public function delete($id, Request $request ){
