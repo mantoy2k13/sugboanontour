@@ -9,9 +9,9 @@ class HotelController extends Controller
 {
     public function index()
     {
-        $title = 'Hotels';
-        $tours = DB::table('files')->where('category', 1)->get();
+        $title = 'Cebu Tour packages';
+        $tours = DB::table('files')->where('category', [2,5])->get();
         
-        return view('pages.hotel', compact('tours', 'title'));
+        return view('pages.cebutours', compact('tours', 'title'));
     }
 }

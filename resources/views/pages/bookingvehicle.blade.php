@@ -6,13 +6,17 @@
 			<div class="row justify-content-center">
 
 				<?php
+				$petrol = '';
 	$js = json_decode($car[0]->img, true);
 	if ($car[0]->vehicle_type == 'sedan' || $car[0]->vehicle_type == 'hatchback') {
 		$seaters = 5;
+		$petrol = 'Gasoline';
 	} else if ($car[0]->vehicle_type == 'suv') {
 		$seaters = 8;
+		
 	} else if ($car[0]->vehicle_type == 'van') {
 		$seaters = 15;
+		$petrol = 'Deisel';
 	} else {
 		$seaters = 5;
 	}
@@ -22,7 +26,7 @@
 				<section class="ftco-section ftco-no-pt ">
 					<div class="d-flex justify-content-around">
 
-						<div class="col-md-12">
+						<div class="col-md-8">
 							<div class="carousel-car owl-carousel">
 								@foreach($js as $dis_img)
 									<div class="item">
@@ -116,7 +120,7 @@
 								<div class="text">
 									<h3 class="heading mb-0 pl-3">
 										Fuel
-										<span>Petrol</span>
+										<span>{{$petrol}}</span>
 									</h3>
 								</div>
 							</div>
@@ -350,13 +354,13 @@
 										</div>
 
 										<div class="border w-100 p-2 rounded ">
-											<p class='text-success small'>PHP 500 </p>
-											<p class='text-black small'>Reservation Fee</p>
+											<p class='text-success small'>PHP 300 </p>
+											<p class='text-black small'>Reservation Fee, (Deduction)</p>
 										</div>
 										<?php
 										$rate = $car[0]->rate;
-										$reservation = 500;
-										$total = $rate + $reservation;
+										$reservation = 300;
+										$total = $rate - $reservation;
 								?>
 										<div class="border w-100 p-2 rounded ">
 											<p class='text-success small'>PHP  {{number_format($total)}}</p>
@@ -367,7 +371,7 @@
 									<input type="hidden" name='car_id' value="{{$car[0]->id}}">
 									<div class="col-md-6 col-lg-12">
 										<button type="submit" class="btn btn-danger" id="submit">Book Now</button>
-										<a href="{{url('findcars')}}" class='btn btn-dark'>Select Another Vehicle</a>
+										<a href="{{url('/')}}" class='btn btn-dark'>Select Another Vehicle</a>
 									</div>
 								</div>
 

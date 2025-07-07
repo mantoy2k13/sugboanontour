@@ -58,7 +58,7 @@ class CustomAuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
 
-        // return redirect("")->with('success','Welcome to car rental');
+        return redirect("/")->with('success','Welcome to car rental');
     }
 
     public function create(array $data)
@@ -70,7 +70,8 @@ class CustomAuthController extends Controller
         'status' => $data['password'],
         'password' => Hash::make($data['password']) 
       ]
-      )->redirect('dashobard')->with('success','Welcome to our page');
+      );
+      return redirect("dashboard")->with('success','Welcome to our page');
     }
 
     public function dashboard()

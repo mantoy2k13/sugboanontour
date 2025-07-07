@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cars', [CarsAjaxController::class, 'index']); 
     Route::get('cars/edit/{id}', [CarsAjaxController::class, 'edit']); 
     Route::post('cars-store', [CarsAjaxController::class, 'store']);
-    Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+    
     Route::post('car/update/{id}', [CarsAjaxController::class, 'update']);
     Route::post('car/updateall', [CarsAjaxController::class, 'updateall']);
     Route::delete('cardelete/{id}', [CarsAjaxController::class, 'delete'])->name('cars.delete');
@@ -56,19 +56,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('bookinglist',[BookingVehicle::class, 'bookinglist']);
 
 });
-
+Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
 Route::get('findcars', [CarsAjaxController::class, 'findcars']); 
 Route::get('vehicle/{id}', [BookingVehicle::class, 'getvehicle']); 
 Route::post('bookingstore', [BookingVehicle::class, 'store']); 
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
-
-
+Route::get('getinfo', [BookingController::class, 'getallinfo']);
     
+Route::get('getallinfos', [BookingController::class, 'getallinfos']);
 
 Route::get('tourpackage/{id}', [MultiFileUploadController::class, 'tourpackage']);
 
-Route::get('hotels', [HotelController::class, 'index']);
+Route::get('cebutour', [HotelController::class, 'index']);
 Route::get('contact', [BookingVehicle::class, 'contact']);
 Route::post('addcontact',[BookingVehicle::class, 'addcontacts']);
 /*auth and login register*/

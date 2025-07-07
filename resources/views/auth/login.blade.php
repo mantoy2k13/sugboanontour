@@ -43,15 +43,7 @@
                                     <button type="submit" class="btn btn-dark btn-block">Signin</button>
                                 </div>
                             </form>
-                            <div class="text-center my-4">
-                                <hr class="my-2">
-                                <span class="text-center font-bold"> Or</span>
-                                <div class="w-3/5 mx-auto mt-4">
-                                    <a href="{{ route('google-auth')}}">
-                                        Continue with google
-                                    </a>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

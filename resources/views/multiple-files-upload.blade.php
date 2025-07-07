@@ -2,11 +2,14 @@
 @section('content')
 <div class="container" style="margin-top:10rem;">
 
-  @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-  @endif
+            	@if(session('success'))
+					<div class="col-md-8 ">
+						<div class="alert alert-success" role="alert">
+							<p class='text-default'>{{ session('success') }}</p>
+						</div>
+						
+					</div>
+				@endif
     
   
       <h2 class="text-center">Upload Itinerary Package </h2>

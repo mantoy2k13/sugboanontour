@@ -35,7 +35,7 @@
 								<div class="icon mr-3">
 									<span class="icon-envelope-o"></span>
 								</div>
-								<p><span>Email:</span> <a href="mailto:info@yoursite.com">cebucarbnb@gmail.com</a></p>
+								<p><span>Email:</span> <a href="mailto:info@yoursite.com">darylb2k11@gmail.com</a></p>
 							</div>
 						</div>
 					</div>

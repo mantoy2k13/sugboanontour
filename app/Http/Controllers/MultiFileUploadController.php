@@ -49,13 +49,13 @@ class MultiFileUploadController extends Controller
      $file->title = $request->input('title');
      $file->save();
      
-    return back()->with('status', 'Data Your files has been successfully added');
+    return back()->with('success', 'Cebu tour packages has been successfully added');
  
     }
 
     public function tourpackage($id, Request $request){
         $trpackage = File::find($id);
-        $title = 'Accomodations';
+        $title = 'Cebu Tour packages';
         return view('pages.tourpackage', compact('trpackage', 'title'));
     }
 

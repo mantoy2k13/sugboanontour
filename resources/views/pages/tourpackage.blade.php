@@ -1,24 +1,21 @@
 @extends('layouts.master')
 @section('content')
   <?php 
-    $imgs = json_decode($trpackage->name, true);
-  $tourpackage = ($trpackage->id) ? $trpackage->id : 0;
+        $imgs = json_decode($trpackage->name, true);
+        $tourpackage = ($trpackage->id) ? $trpackage->id : 0;
+        
     ?>
-  <div class="container mt-5">
-
-    <section class="ftco-section ftco-degree-bg">
-    <div class="container">
-      <div class="row">
-      <section class="ftco-section ftco-no-pt ">
+	<section class="ftco-section contact-section">
+		<div class="container">
         <div class="d-flex justify-content-around">
 
-        <div class="col-md-12 col-lg-12">
+        <div class="col-md-8 col-lg-8">
           <div class="carousel-car owl-carousel">
           @foreach($imgs as $dis_img)
         <div class="item">
         <div class="car-wrap rounded ftco-animate">
         <div class="img rounded d-flex align-items-end"
-          style="background-image: url('{{asset('files/' . $dis_img)}}'); height:650px;">
+          style="background-image: url('{{asset('files/' . $dis_img)}}'); height:450px;width:auto;">
         </div>
         <div class="text">
           <h2 class="mb-0 "><a href="#" class='text-default'>
@@ -30,63 +27,110 @@
           </div>
         </div>
         </div>
-      </section>
-
-
-      <div class="col-md-12 sidebar ftco-animate">
-        <div class='d-flex col-md-6'>
-        <div class="sidebar-box ftco-animate">
+			<div class="row d-flex mb-5 contact-info">
+			
+				<div class="col-md-6">
+					<div class="row mb-5">
+						
+					
+						<div class="col-md-12">
+							<div class="border w-100  d-flex">
+							    <div class="sidebar-box ftco-animate">
           <div class="categories">
-          <h3 class="orange">Call: <a href="tel:+63915 097 1513" class="orange"> 0915 097 1513</a> </h3>
+          <h3 class="orange">Call: <a href="tel:+63915 097 1513" class="text-default"> 0915 097 1513</a> </h3>
+          <h2 class='text-default'>{{ucfirst($trpackage->title)}}</h2>
+          
           {!!$trpackage->details!!}
-          <h3 class="mb-3"> </h3>
+          
           </div>
         </div>
-        <div>&nbsp; <h1>asdasd</h1></div>
-        </div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 block-9 mb-md-5">
+					<form action="{{url('booknow')}}" class="bg-light p-5 contact-form" method="POST">
+						@csrf
+            <div class='d-flex justify-content-center'>
+                <h2 class='text-default'>Book Tour package reservation</h2>
+            </div>
+            <div class='d-flex justify-content-around'>
+										<div>
+											<img src="{{asset('images/gcash.png')}}" alt="img" class=''
+												style="width:125px;height:125px;" />
+										</div>
+										<div><img src="{{asset('images/visa.png')}}" alt="img"
+												style="width:125px;height:125px;" /></div>
+										<div><img src="{{asset('images/master-card.webp')}}" alt="img"
+												style="width:125px;height:125px;" /></div>
+									</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name='fullname' placeholder="Full Name">
+							@error('fullname')
+								<div class="alert alert-danger mt-1 mb-1 col-lg-6 ">{{ $message }}</div>
+							@enderror
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" name='email' placeholder="Email address">
+							@error('email')
+								<div class="alert alert-danger mt-1 mb-1 col-lg-6 ">{{ $message }}</div>
+							@enderror
+						</div>
+						<div class="form-group">
+              <p class='text-default'>Booking Date</p>
+							<input type="date" class="form-control" name='booking_date' placeholder="Booking Date">
+              
+							@error('booking_date')
+								<div class="alert alert-danger mt-1 mb-1 col-lg-6 ">{{ $message }}</div>
+							@enderror
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name='phone_number' placeholder="Phone Number">
+							@error('phone_number')
+								<div class="alert alert-danger mt-1 mb-1 col-lg-6 ">{{ $message }}</div>
+							@enderror
+						</div>
+            	<div class="form-group">
+							<select name="no_of_pax" id="no_of_pax" class='form-control'>
+                  <option value="">Select Pax</option>
+                  @for ($i = 1; $i<=50; $i++)
+                    <option value="{{$i}}">{{$i}}</option>
+                  @endfor
+              </select>
+							@error('no_of_pax')
+								<div class="alert alert-danger mt-1 mb-1 col-lg-6 ">{{ $message }}</div>
+							@enderror
+						</div>
+						<div class="form-group">
+							<textarea name="message" id="" cols="30" rows="7" class="form-control"
+								placeholder="Message"></textarea>
+						</div>
+					<input type="hidden" name = 'tour_id' value="{{$tourpackage}}">
+							
+						<div class="form-group">
+              <div class='d-flex'>
+                <div>
+                    <input type="submit" value="Book Tour Packages Now" class="btn btn-success">
+                </div>
+              <div>
+                <a href="{{url('cebutour')}}" class='btn btn-dark'>Select Another Tour</a>
+              </div>
+              
+              </div>
+              
+						</div>
+					</form>
 
-        <div class="sidebar-box ftco-animate">
-        <div class="comment-form-wrap ">
-          <h3 class="mb-5">Book now</h3>
-          <form method="POST" action="{{ url('booknow')}}" class=" bg-light">
-          @csrf
-          <div class="form-group">
-            <label for="name">Name *</label>
-            <input type="text" name="name" class="form-control" id="name">
-            @error('name')
-        <div class="alert alert-danger mt-1 mb-1 ">{{ $message }}</div>
-        @enderror
-          </div>
-          <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" name="email" class="form-control" id="email">
-          </div>
-          <div class="form-group">
-            <label for="contact">Contact Number *</label>
-            <input type="text" name="contact_number" class="form-control" id="contact_number">
-            @error('contact_number')
-        <div class="alert alert-danger mt-1 mb-1 ">{{ $message }}</div>
-        @enderror
-          </div>
-          <div class="form-group">
-            <label for="contact">Contact Number *</label>
-            <input type="text" name="contact_number" class="form-control" id="name">
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
-          </div>
-          <div class="form-group">
-            <input type="hidden" name="tourpackage" value="{{$tourpackage}}">
-            <input type="submit" value="Book" class="btn py-3 px-4 btn-primary">
-          </div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
 
-          </form>
-        </div>
-        </div>
-      </div>
-      </div>
-    </section> <!-- .section -->
+	@push('head')
+		<!-- Styles -->
 
-  </div>
+
+	@endpush
 @endsection

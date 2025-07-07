@@ -18,7 +18,6 @@
 							<p class='text-default'>{{ session('success') }}</p>
 						</div>
 
-
 					@endif
 					<h1 class='text-default'><span class="icon-mobile-phone"></span> <a href="tel:+63915 097 1513"
 							class='text-default'> 0915 097 1513</a></h1>
@@ -75,7 +74,7 @@
 											<p>
 												<img src="{{asset('images/loc.png')}}" alt="" class=""
 													style="width:20px;height:20px;" />
-												{{strtoupper($car->location)}}
+												{{ucfirst($car->location)}}
 											</p>
 
 
