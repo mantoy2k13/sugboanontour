@@ -11,7 +11,15 @@
 					</div>
 				@endif
     
-  
+            <?php
+                if (Auth::check()) {
+                    $user_id = Auth::user()->id;
+                }
+                else{
+                    $user_id = 0;
+                }
+                $accomodations = array('oslob','moalboal', 'badian');
+            ?>
       <h2 class="text-center">Upload Itinerary Package </h2>
     <div class="col-md-8 block-9 mb-md-5"> 
         <form name="save-multiple-files" method="POST"  action="{{ url('save-multiple-files') }}"  enctype="multipart/form-data" class="bg-light p-5 contact-form">
@@ -35,6 +43,19 @@
                         </select>   
                     </div>
                     @error('category')
+                        <div class="alert alert-danger mt-1 mb-1 col-lg-6">{{ $message }}</div>
+                    @enderror
+                </div>
+                 <div class="col-md-6 col-lg-12">
+                    <div class="form-group">
+                        <select name="accomodation" class="form-control">
+                            <option value="">Select Accomodations </option>
+                            @foreach ($accomodations  as $accomodation)
+                                <option value="{{$accomodation}}"> {{$accomodation}}</option>
+                            @endforeach
+                        </select>   
+                    </div>
+                    @error('accomodation')
                         <div class="alert alert-danger mt-1 mb-1 col-lg-6">{{ $message }}</div>
                     @enderror
                 </div>
@@ -62,12 +83,13 @@
                         <div class="alert alert-danger mt-1 mb-1 col-lg-6 ">{{ $message }}</div>
                     @enderror
                 </div>
-                
+                <input type='hidden' name='user_id' value='{{$user_id}}'>
                 <div class="col-md-6 col-lg-12">
                     <button type="submit" class="btn btn-primary" id="submit">Submit</button>
                 </div>
             </div>     
         </form>
+        
     </div>
     
     

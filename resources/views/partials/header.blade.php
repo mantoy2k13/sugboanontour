@@ -8,13 +8,30 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 			
-
+<?php
+	
+?>
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="{{url('/') }}" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="{{url('cebutour')}}" class="nav-link ">Cebu Tours</a></li>
-	          <li class="nav-item"><a href="#" class="nav-link ">Services</a></li>
-			  <li class="nav-item"><a href="{{url('contact')}}" class="nav-link ">Contact</a></li>
-	          <li class="nav-item"><a href="{{url('findcars')}}" class="nav-link ">Find Cars</a></li>
+	          <li class="nav-item <?=$active = ($title=='home') ? 'active' : '';?>"><a href="{{url('/') }}" class="nav-link">Home</a></li>
+	          <li class="nav-item <?=$active = ($title=='cebutour') ? 'active' : '';?>"><a href="{{url('cebutour')}}" class="nav-link ">Cebu Tours</a></li>
+	          <li class="nav-item">
+				
+				<div class="btn-group flex-column">
+					<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Accomodations
+					</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="{{url('accomodations/oslob')}}">Oslob</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{url('accomodations/moalboal')}}">Moalboal</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Badian</a>
+						
+					</div>
+					</div>
+			  </li>
+			  <li class="nav-item <?=$active = ($title=='contact') ? 'active' : '';?>"><a href="{{url('contact')}}" class="nav-link ">Contact </a></li>
+	          
 	          <li class="nav-item"><a href="tel:+63915 097 1513" class='nav-link'><span class="icon-mobile-phone"></span> 0915 097 1513</a> </li>
 			  
 			  @if (Auth::check())
@@ -27,7 +44,7 @@
 
 			  @else
 
-			  <li class="nav-item">
+			  <li class="nav-item <?=$active = ($title=='login') ? 'active' : '';?>">
 				  <a class="nav-link"  href="{{ route('login') }}">Login</a>
 			  </li>
 

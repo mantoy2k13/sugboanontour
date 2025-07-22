@@ -42,20 +42,22 @@ class MultiFileUploadController extends Controller
      
      $file= new File();
      $file->name = json_encode($files);
-     $file->path = '1';
+     $file->path = $request->input('accomodation');
+     $file->user_id = $request->input('user_id');
      $file->rate = $request->input('rate');
      $file->details = $request->input('details');
      $file->category = $request->input('category');
      $file->title = $request->input('title');
+     $file->book_status = 1;
      $file->save();
      
-    return back()->with('success', 'Cebu tour packages has been successfully added');
+    return back()->with('success', 'Booking tour/rooms has been successfully ');
  
     }
 
     public function tourpackage($id, Request $request){
         $trpackage = File::find($id);
-        $title = 'Cebu Tour packages';
+        $title = 'booking';
         return view('pages.tourpackage', compact('trpackage', 'title'));
     }
 

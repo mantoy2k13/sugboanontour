@@ -33,7 +33,7 @@ class BookingVehicle extends Controller
     }
     public function contact(Request $request)
     {
-        $title = 'Contact Page';
+        $title = 'contact';
         return view('pages.contact', ['title' => $title]);
     }
     public function store(Request $request)

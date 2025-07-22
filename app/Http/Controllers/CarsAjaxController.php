@@ -208,6 +208,10 @@ class CarsAjaxController extends Controller
         return redirect('/dashboard')->with('success', 'Cars updated successfully!' . $mssg,);
     }
 
+    public function srchlocation(Request $request){
+        return 'searching';
+    }
+
     /**
      * Remove the specified resource from storage.
      *

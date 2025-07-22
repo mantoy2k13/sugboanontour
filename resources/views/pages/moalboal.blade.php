@@ -1,6 +1,8 @@
 @extends('layouts.master')
 @section('content')
-
+<pre>
+  
+</pre>
 <div class="container">
   <div class='row justify-content-center'>
         	@if(session('success'))
@@ -12,10 +14,11 @@
 					</div>
 				@endif
   </div>
+
         <div class="row justify-content-center mb-5">
           <div class="col-md-7 heading-section text-center ftco-animate">
           	
-            <span class="subheading">Carbnb & Tours</span>
+            <span class="subheading">MOALBOAL Hotels</span>
             <h2 class='text-default'> <a href="tel:+63915 097 1513"
 							class='text-default'><span class="icon-mobile-phone"></span> 0915 097 1513</a></h2>
           </div>

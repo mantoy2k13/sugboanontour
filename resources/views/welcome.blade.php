@@ -10,7 +10,7 @@
 			</div>
 		</div> --}}
 		<div class="container">
-			<div class='d-flex align-items-center justify-content-center'>
+			<div class='d-flex  justify-content-around'>
 				<div class='d-flex '>
 					@if(session('success'))
 
@@ -22,6 +22,7 @@
 					<h1 class='text-default'><span class="icon-mobile-phone"></span> <a href="tel:+63915 097 1513"
 							class='text-default'> 0915 097 1513</a></h1>
 				</div>
+				 	
 			</div>
 			<div class="row">
 
@@ -61,13 +62,13 @@
 								<div class="car-wrap rounded ftco-animate">
 									<div class="img rounded d-flex align-items-end"
 										style="background-image: url('{{asset('files/' . $car_img[0])}}');">
-										<h3 class='available font-weight-bolder {{$text_color}}'>{{$message_available}}</h3>
+										<h3 class='text-white available font-weight-bolder'>{{$car->name}}
+													{{$car->model}}</h3>
 									</div>
 									<div class="text">
 										<div class='d-flex flex-row justify-content-center'>
 											<h2 class="mb-0 text-default"><a href="{{$book_url}}"
-													class='text-default text-decoration-none'>{{$car->name}}
-													{{$car->model}} </a></h2>
+													class='text-default text-decoration-none'> </a></h2>
 										</div>
 
 										<div class="d-flex flex-column  mb-3">
@@ -114,7 +115,7 @@
 
 
 										</div>
-										<p class="d-flex mb-0 d-block"><a href="{{$book_url}}" class="btn btn-secondary py-2 ml-1">Book
+										<p class="d-flex mb-0 d-block"><a href="{{$book_url}}" class="btn btn-secondary py-2 ml-1 w-100">Book
 												now</a>
 
 										</p>

@@ -9,7 +9,7 @@ class File extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','path', 'details', 'category','title', 'rate'];
+    protected $fillable = ['name', 'user_id', 'path', 'details', 'category','title', 'rate', 'book_status'];
     public function setFilenamesAttribute($value)
     {
         $this->attributes['filenames'] = json_encode($value);

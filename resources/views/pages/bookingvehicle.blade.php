@@ -361,7 +361,7 @@
 										$rate = $car[0]->rate;
 										$reservation = 300;
 										$total = $rate - $reservation;
-								?>
+										?>
 										<div class="border w-100 p-2 rounded ">
 											<p class='text-success small'>PHP  {{number_format($total)}}</p>
 											<p class='text-black small'>Total Rental Fee (Inclusive of VAT and payment gateway fee)</p>

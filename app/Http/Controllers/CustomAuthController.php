@@ -16,7 +16,7 @@ class CustomAuthController extends Controller
     
     public function index()
     {
-        $title = 'Login';
+        $title = 'login';
         return view('auth.login', ['title' => $title]);
 
     }

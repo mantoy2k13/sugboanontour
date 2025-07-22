@@ -19,10 +19,10 @@ use App\Http\Controllers\GoogleAuthController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    $title = 'CebuCarBnb';
-     $findcars = DB::table('cars as c')
+Route::get('/', function(){
+    
+    $title = 'home';
+    $findcars = DB::table('cars as c')
             ->select(
                 'c.vehicle_name as name',
                 'c.path as img',
@@ -35,8 +35,11 @@ Route::get('/', function () {
                 'c.book_status as book_status'
             )->where('book_status',1)
             ->paginate(10);
-    return view('welcome', compact('title', 'findcars'));
+            
+    return view('welcome', compact('title', 'findcars') );
+
 });
+
 // Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
@@ -78,8 +81,11 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 
 
 Route::post('booknow', [BookingController::class, 'store']);
+Route::get('srchlocation',[CarsAjaxController::class, 'srchlocation']);
 
-
-
+/*Accomodations pages*/
+Route::get('accomodations/oslob',[HotelController::class, 'accomodation']);
+Route::get('accomodations/moalboal',[HotelController::class, 'moalboal']);
+/*end accomodations*/
 // deleting tour packages
 Route::delete('tours/{id}', [MultiFileUploadController::class, 'delete'])->name('tours.delete');

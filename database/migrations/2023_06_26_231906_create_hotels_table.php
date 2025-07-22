@@ -19,7 +19,7 @@ class CreateHotelsTable extends Migration
             $table->string('category');
             $table->string('luxury_class');
             $table->timestamps();
-        });
+        });  
     }
 
     /**
