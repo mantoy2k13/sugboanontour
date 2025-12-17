@@ -3,6 +3,7 @@
 
     <section class="ftco-section contact-section">
         <div class="container">
+			 <div id='calendar'>Calendar</div>
             <div class="row d-flex mb-5 contact-info">
                 	<form action="{{url('/getallinfos')}}" class="bg-light p-5 contact-form" method="GET">
 						@csrf
@@ -23,10 +24,25 @@
 
         </div>
     </section>
+@section('script')
 
+	<script type="text/javascript">
+
+		 document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '/api/events', // Route to fetch events from your Laravel controller
+                // ... other FullCalendar options and event handlers
+            });
+            calendar.render();
+        });
+		console.log('way klaro');
+	</script>
+@endsection
     @push('head')
         <!-- Styles -->
 
-
+	<script src="{{ asset('js/custom.js')}}"></script>
     @endpush
 @endsection

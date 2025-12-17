@@ -21,7 +21,9 @@ class Cars extends Model
         'book_status',
         'driver_status',
         'rate',
-        'phone_number'
+        'phone_number',
+        'transmission_type',
+        'fuel_type'
     ];
 
      public function setFilenamesAttribute($value)

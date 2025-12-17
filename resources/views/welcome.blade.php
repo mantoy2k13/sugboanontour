@@ -22,7 +22,7 @@
 					<h1 class='text-default'><span class="icon-mobile-phone"></span> <a href="tel:+63915 097 1513"
 							class='text-default'> 0915 097 1513</a></h1>
 				</div>
-				 	
+
 			</div>
 			<div class="row">
 
@@ -31,7 +31,7 @@
 					@foreach($findcars as $keycar => $car)
 
 							<?php 
-																					$car_img = json_decode($car->img, true);
+																																					$car_img = json_decode($car->img, true);
 						if ($car->book_status == 1) {
 							$message_available = 'Available';
 							$text_color = 'text-white';
@@ -41,29 +41,34 @@
 						}
 						$book_url = url('vehicle/' . $car->id);
 
-										?>
+																										?>
 
 							<?php 
-										if ($car->vehicle_type == 'sedan' || $car->vehicle_type == 'hatchback') {
-							$v_type = 'Sedan';
+																										if ($car->vehicle_type == 'sedan') {
+							$stndrate = 1700;
 							$seaters = 5;
+						} else if ($car->vehicle_type == 'hatchback') {
+							$seaters = 5;
+							$stndrate = 1500;
 						} else if ($car->vehicle_type == 'suv') {
-							$v_type = 'Suv';
+							$stndrate = 2500;
 							$seaters = 8;
 						} else if ($car->vehicle_type == 'van') {
-							$v_type = 'Van';
+							$stndrate = 3500;
 							$seaters = 15;
 						} else {
-							$v_type = 5;
+							$seaters = 5;
+							$stndrate = 1700;
 						}	
-																									?>
+																																									?>
 
 							<div class="col-md-3" id="car{{$car->id}}">
 								<div class="car-wrap rounded ftco-animate">
-									<div class="img rounded d-flex align-items-end"
-										style="background-image: url('{{asset('files/' . $car_img[0])}}');">
+									<div class="img rounded d-flex align-items-end" style="background-image:
+																	 url('{{ asset('files/' . $car_img[0]) }}');">
 										<h3 class='text-white available font-weight-bolder'>{{$car->name}}
-													{{$car->model}}</h3>
+											{{$car->model}}
+										</h3>
 									</div>
 									<div class="text">
 										<div class='d-flex flex-row justify-content-center'>
@@ -75,7 +80,7 @@
 											<p>
 												<img src="{{asset('images/loc.png')}}" alt="" class=""
 													style="width:20px;height:20px;" />
-												{{ucfirst($car->location)}}
+												{{ $car->location }}
 											</p>
 
 
@@ -88,18 +93,19 @@
 													</p>
 												</div>
 												<div class=''>
-													<span class="flaticon-pistons text-default"> </span> Automatic
+													<span class="flaticon-pistons text-default"> </span> {{ ucfirst($car->t_type) }}
 												</div>
 											</div>
 											<div class='d-flex flex-row justify-content-between'>
 												<div class=''>
-													<p class='text-black'><span class="flaticon-diesel text-default"></span>Gasoline
+													<p class='text-black'><span
+															class="flaticon-diesel text-default"></span>{{ ucfirst($car->f_type) }}
 
 													</p>
 												</div>
 												<div class=''>
 
-													<span class="flaticon-car text-default"> </span> {{$v_type}}
+													<span class="flaticon-car text-default"> </span> {{ ucfirst($car->vehicle_type) }}
 												</div>
 											</div>
 
@@ -109,13 +115,33 @@
 														class='text-default' /> 1 day
 												</div>
 												<div class=''>
-													<p class='font-weight-bolder'>PHP {{number_format($car->rate, 2)}}</p>
+													<p class='font-weight-bolder'>
+														<?php 
+
+																										?>
+														PHP {{number_format($stndrate)}}
+													</p>
 												</div>
 											</div>
-
+											{{-- end rate --}}
+											<div class='d-flex flex-row justify-content-center border-top border-bottom pt-2'>
+												<h3>
+													<span class="icon-mobile-phone text-default"></span> <span
+														class="text-lg text-default font-weight-bold">
+													@if($car->role == 2)
+													{{ $ph_subs = $car->phone }}
+													
+													@else
+													
+													{{  $ph_subs = substr_replace($car->phone, "xxx", -3) }}
+													@endif
+														 
+												</h3>
+											</div>
 
 										</div>
-										<p class="d-flex mb-0 d-block"><a href="{{$book_url}}" class="btn btn-secondary py-2 ml-1 w-100">Book
+										<p class="d-flex mb-0 d-block"><a href="{{$book_url}}"
+												class="btn btn-secondary py-2 ml-1 w-100">Book
 												now</a>
 
 										</p>

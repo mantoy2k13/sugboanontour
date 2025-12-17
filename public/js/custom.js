@@ -91,7 +91,41 @@ cardelete = (id, t) =>{
                 
             }                
 }
+contactsdelete = (id, t) => {
+ $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        /*------------------------------------------
+        --------------------------------------------
+        When click user on Delete Button
+        --------------------------------------------
+        --------------------------------------------*/
+
+            if (confirm("Are you sure you want to delete this users/info?") == true) {
+                
+                $.ajax({
+                    url: adminUrl+'/usersdelete/'+id,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function(data) {
+                        // $tr= $(t).closest("div");
+
+                    
+                        // $tr.find('#car'+id).fadeOut(700, function () {
+                        //     $tr.remove();    
+                        // });
+                        
+                        // $('.messagealert').text(data.success);                       
+                        console.log(data);
+                    }
+                });
+                
+            }          
+
+}
 setavailable = (id, book_status) => {
     
     var message = '';

@@ -50,6 +50,12 @@ class BookingController extends Controller
     {
         $title = 'get all';
         $users = array();
+        $booking = DB::table('booking_models as book')
+        ->select(
+            'book.id as id',
+            'book.client_name as name',
+            'book.phone_number as number'
+        )->get();
         $result = '';
         if ($request->input('search') == strtolower('getusers')) {
             $users = DB::table('users as u')
@@ -58,18 +64,21 @@ class BookingController extends Controller
                     'u.status as pass',
                     'u.phone as phone',
                     'u.email as email'
-                )->paginate(3);
+                )
+                ->orderBy('id', 'DESC')
+                ->paginate(50);
             $result = 'getusers';
         }
         else if($request->input('search') == strtolower('contacts') ){
             $users = DB::table('booking_models as b')
                 ->select(
+                    'b.id as id',
                     'b.client_location as location',
                     'b.phone_number as number',
                     'b.message as message',
                     'b.client_name as fullname',
                     'b.created_at as date'
-                )->paginate(3);
+                )->paginate(13);
                 $result = 'contacts';
         }
         else if($request->input('search') == strtolower('gettours') ){
@@ -80,10 +89,22 @@ class BookingController extends Controller
                     'tour.no_of_pax as perhead',
                     'tour.phone_number as number',
                     'tour.created_at as date'
-                )->paginate(3);
+                )->paginate(50);
                 $result = 'gettours';
+        }
+        else{
+            $users = array();
+            $result = '';
         }
         
         return view('pages.getall', ['title' => $title, 'users' => $users, 'results' => $result]);
+    }
+
+    public function delete($id, Request $request){
+        $data = CebutourpackageModel::find($id);
+        
+        $data->delete();
+        $mssg = 'Users data deleted';
+        return response()->json(['success' => $mssg]);
     }
 }

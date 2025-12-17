@@ -74,9 +74,9 @@
 											 Set to avaiable
 
 										</button>
-										<button role="button" class="btn btn-secondary py-2 ml-1"
+										<button role="button" class="btn btn-danger py-2 ml-1"
 											onclick="setavailable({{$car->id}}, 2)">
-											Set to NOT AVAILABLE
+											Set to not avaiable
 										</button>
 
 									

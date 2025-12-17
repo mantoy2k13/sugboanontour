@@ -8,7 +8,7 @@ use App\Http\Controllers\CarsAjaxController;
 use App\Http\Controllers\BookingVehicle;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\GoogleAuthController;
-
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,73 +19,88 @@ use App\Http\Controllers\GoogleAuthController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
-    
-    $title = 'home';
-    $findcars = DB::table('cars as c')
-            ->select(
-                'c.vehicle_name as name',
-                'c.path as img',
-                'c.location as location',
-                'c.book_date as rate',
-                'c.year as year',
-                'c.vehicle_type as vehicle_type',
-                'c.model as model',
-                'c.id as id',
-                'c.book_status as book_status'
-            )->where('book_status',1)
-            ->paginate(10);
-            
-    return view('welcome', compact('title', 'findcars') );
 
+Route::get('/', function () {
+
+    $title = 'cebucarbnb';
+    $findcars = DB::table('cars as c')
+        ->select(
+            'c.vehicle_name as name',
+            'c.path as img',
+            'c.location as location',
+            'c.book_date as rate',
+            'c.year as year',
+            'c.vehicle_type as vehicle_type',
+            'c.model as model',
+            'c.id as id',
+            'c.book_status as book_status',
+            'c.transmission_type as t_type',
+            'c.fuel_type as f_type',
+            'u.phone as phone',
+            'u.name as full_name',
+            'u.role as role'
+        )
+        ->join('users as u', 'u.id', '=', 'c.user_id')
+        ->where('c.book_status', 1)
+        ->orderBy('id', 'DESC')
+        ->paginate(80);
+
+    return view('welcome', compact('title', 'findcars'));
 });
 
 // Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', [CustomAuthController::class, 'dashboard']);     
-    
+
+
     Route::get('files-upload', [MultiFileUploadController::class, 'index']);
-        //add more Routes here
+    //add more Routes here
     Route::post('save-multiple-files', [MultiFileUploadController::class, 'store']);
-    Route::get('cars', [CarsAjaxController::class, 'index']); 
-    Route::get('cars/edit/{id}', [CarsAjaxController::class, 'edit']); 
+    Route::get('cars', [CarsAjaxController::class, 'index']);
+    Route::get('cars/edit/{id}', [CarsAjaxController::class, 'edit']);
     Route::post('cars-store', [CarsAjaxController::class, 'store']);
-    
+
     Route::post('car/update/{id}', [CarsAjaxController::class, 'update']);
     Route::post('car/updateall', [CarsAjaxController::class, 'updateall']);
     Route::delete('cardelete/{id}', [CarsAjaxController::class, 'delete'])->name('cars.delete');
-    /*dashboard admin page */ 
-    Route::get('bookinglist',[BookingVehicle::class, 'bookinglist']);
-
+    /*dashboard admin page */
+    Route::get('bookinglist', [BookingVehicle::class, 'bookinglist']);
+    Route::get('mybooking', [BookingVehicle::class, 'mybooking']);
+    Route::get('dashboard', [CustomAuthController::class, 'dashboard']);
 });
+
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
-Route::get('findcars', [CarsAjaxController::class, 'findcars']); 
-Route::get('vehicle/{id}', [BookingVehicle::class, 'getvehicle']); 
-Route::post('bookingstore', [BookingVehicle::class, 'store']); 
-Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
+
+Route::get('findcars', [CarsAjaxController::class, 'findcars']);
+Route::get('vehicle/{id}', [BookingVehicle::class, 'getvehicle']);
+Route::post('bookingstore', [BookingVehicle::class, 'store']);
+Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom');
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 Route::get('getinfo', [BookingController::class, 'getallinfo']);
-    
+Route::get('aboutus', [CustomAuthController::class, 'aboutus']);
 Route::get('getallinfos', [BookingController::class, 'getallinfos']);
 
 Route::get('tourpackage/{id}', [MultiFileUploadController::class, 'tourpackage']);
 
 Route::get('cebutour', [HotelController::class, 'index']);
 Route::get('contact', [BookingVehicle::class, 'contact']);
-Route::post('addcontact',[BookingVehicle::class, 'addcontacts']);
+Route::post('addcontact', [BookingVehicle::class, 'addcontacts']);
 /*auth and login register*/
 
-Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 
 Route::post('booknow', [BookingController::class, 'store']);
-Route::get('srchlocation',[CarsAjaxController::class, 'srchlocation']);
+Route::get('srchlocation', [CarsAjaxController::class, 'srchlocation']);
 
 /*Accomodations pages*/
-Route::get('accomodations/oslob',[HotelController::class, 'accomodation']);
-Route::get('accomodations/moalboal',[HotelController::class, 'moalboal']);
+Route::get('hotel/oslob', [HotelController::class, 'accomodation']);
+Route::get('hotel/moalboal', [HotelController::class, 'moalboal']);
+Route::get('hotel/santafe', [HotelController::class, 'santafe']);
 /*end accomodations*/
 // deleting tour packages
 Route::delete('tours/{id}', [MultiFileUploadController::class, 'delete'])->name('tours.delete');
+/*movies*/
+// deleting contacts tours
+Route::delete('usersdelete/{id}', [BookingController::class, 'delete']);

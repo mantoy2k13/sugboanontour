@@ -21,6 +21,14 @@ class CustomAuthController extends Controller
 
     }
 
+    /*this page for about us*/
+
+    public function aboutus(){
+        $title = 'aboutus';
+        
+        return view('pages.aboutus',['title' => $title] );
+    }
+
     public function customLogin(Request $request)
     {
         $request->validate([
@@ -28,7 +36,7 @@ class CustomAuthController extends Controller
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password', 'remember');
         if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard')->with('success','Welcome, Cebu Car BNB');
         }
@@ -39,9 +47,9 @@ class CustomAuthController extends Controller
         
     }
 
-    public function registration()
+    public function registration(Request $request)
     {
-        $title = 'Registration';
+        $title = 'registration';
         return view('auth.registration', ['tours' => [], 'cars' => [], 'title'=>$title ]); 
     }
 
@@ -56,9 +64,13 @@ class CustomAuthController extends Controller
         ]);
         
         $data = $request->all();
-        $check = $this->create($data);
+        $user = $this->create($data);
 
-        return redirect("/")->with('success','Welcome to car rental');
+        
+        Auth::login($user);
+        
+        return redirect("/dashboard")->with('success','Welcome to car rental ');
+         
     }
 
     public function create(array $data)
@@ -71,7 +83,9 @@ class CustomAuthController extends Controller
         'password' => Hash::make($data['password']) 
       ]
       );
-      return redirect("dashboard")->with('success','Welcome to our page');
+      
+      return redirect('/dashboard')->with('success', 'Welcome to our page');
+      
     }
 
     public function dashboard()

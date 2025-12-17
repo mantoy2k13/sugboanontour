@@ -61,6 +61,11 @@ class MultiFileUploadController extends Controller
         return view('pages.tourpackage', compact('trpackage', 'title'));
     }
 
+    public function movies(){
+        $title = 'movies';
+         return view('pages.movies', compact('title', 'title'));
+    }
+
     public function delete($id, Request $request ){
 
         $data = File::find($id);

@@ -55,6 +55,7 @@
                                     <th scope="col">Number</th>
                                     <th scope="col">Message</th>
                                     <th scope="col">Date</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,6 +67,7 @@
                                             <td>{{$user->number}}</td>
                                             <td>{{$user->message}}</td>
                                             <td>{{ date('Y-m-d', strtotime($user->date))}}</td>
+                                            
                                         </tr>
                                     @endforeach
                                 @endif
@@ -88,7 +90,7 @@
                                     @foreach($users as $user)
                                         <tr>
                                             <td>{{$user->fullname}}</td>
-                                            <td>{{$user->booking_date}}</td>
+                                            <td>{{date('Y-M-d', strtotime($user->booking_date)) }}</td>
                                             <td>{{$user->perhead}}</td>
                                             <td>{{$user->number}}</td>
                                             <td>{{ date('Y-m-d', strtotime($user->date)) }}</td>
@@ -160,3 +162,15 @@
 
     @endpush
 @endsection
+@section('script')
+
+@endsection
+@yield('script')
+@push('head')
+
+
+	<!-- Scripts -->
+
+	<script src="{{ asset('js/custom.js')}}"></script>
+
+@endpush

@@ -67,7 +67,7 @@ class BookingVehicle extends Controller
     {
     $id = (Auth::check()) ? Auth::user()->id : 0;    
     $title = 'Booking lists';
-    $currentdate = date('Y-m-d', strtotime(now()->subDays(7) ) );
+    $currentdate = date('Y-m-d', strtotime(now()->subDays(15) ) );
     
      $bookings = DB::table('cars as c')
     ->join('booking_models as b', 'c.id', '=', 'b.car_id')
@@ -91,6 +91,34 @@ class BookingVehicle extends Controller
     return view('pages.bookinglist', ['bookings'=>$bookings, 'title'=>$title ] );
     }
 
+    public function mybooking( Request $request)
+    {
+    $id = (Auth::check()) ? Auth::user()->id : 0;    
+    $title = 'mybooking';
+    $currentdate = date('Y-m-d', strtotime(now()->subDays(15) ) );
+    
+     $mybookings = DB::table('cars as c')
+    ->join('booking_models as b', 'c.id', '=', 'b.car_id')
+    ->select(
+        'c.vehicle_name as vehicle',
+        'c.user_id as user_id',
+        'c.path as img',
+        'c.model as model',
+        'c.location as location_owner',
+        'c.vehicle_type as vtype',
+        'b.pick_up_date as pick_date',
+        'b.return_date as return_date',
+        'b.client_location as client_location',
+        'b.phone_number as number',
+        'b.client_name as name',
+        'b.created_at'
+        
+        )->where('c.user_id', '=', $id)
+        ->orderBy('b.id', 'DESC')
+        ->get();
+        
+    return view('pages.mybooking', ['mybookings'=>$mybookings, 'title'=>$title ] );
+    }
     public function addcontacts(Request $request){
          $this->validate($request, [
 
@@ -116,5 +144,7 @@ class BookingVehicle extends Controller
         $text = 'Your message has been sent successfully, is this correct number ' . $number . ' ?, If not please rebook.';
         return redirect('/contact')->with('success', $text);
     }
+
+    
 }
 

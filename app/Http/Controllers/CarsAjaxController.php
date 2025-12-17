@@ -52,8 +52,10 @@ class CarsAjaxController extends Controller
             'model'              => 'required',
             'year'               => 'required',
             'location'           => 'required',
-            'book_date'          => 'required',
+            'rate'          => 'required|numeric',
             'vehicle_type'       => 'required',
+            'fuel_type'               => 'required',
+            'transmission_type'       => 'required'
             // 'book_status'        => 'required'
 
 
@@ -74,11 +76,13 @@ class CarsAjaxController extends Controller
         $car->path = $json_ncode;
         $car->model = $request->input('model');
         $car->year = $request->input('year');
-        $car->book_date = $request->input('book_date'); /*temporary sa rate*/
+        $car->book_date = $request->input('rate'); /*temporary sa rate*/
         $car->location = $request->input('location');
         $car->vehicle_type = $request->input('vehicle_type');
         $car->book_status = 1;
         $car->driver_status = 1;
+        $car->transmission_type = $request->input('transmission_type');
+        $car->fuel_type = $request->input('fuel_type');
 
         $car->save();
 
@@ -98,9 +102,15 @@ class CarsAjaxController extends Controller
                 'c.vehicle_type as vehicle_type',
                 'c.model as model',
                 'c.id as id',
-                'c.book_status as book_status'
-            )->where('book_status',1)
-            ->get()->toArray();
+                'c.book_status as book_status',
+                'c.transmission_type as t_type',
+                'c.fuel_type as f_type',
+                'u.phone as phone'
+            )
+            ->join('users as u', 'u.id', '=', 'c.user_id')
+            ->where('c.book_status',1)
+            ->paginate(20);
+        
         return view('pages.findcars', ['findcars' => $findcars, 'title' => $title]);
     }
 
@@ -135,7 +145,9 @@ class CarsAjaxController extends Controller
                 'c.model as model',
                 'c.id as id',
                 'c.book_status as book_status',
-                'c.book_date as book_date'
+                'c.book_date as book_date',
+                'c.transmission_type as t_type',
+                'c.fuel_type as f_type'
             )
             ->where('c.id', $id)
             ->get();
@@ -167,12 +179,15 @@ class CarsAjaxController extends Controller
         
          $this->validate($request, [
             'filenames' => 'required',
-            'filenames.*' => 'image'
-            
+            'filenames.*' => 'image',
+            'rate'          => 'required|numeric'
         ]);
+        
         if ($request->has('car_id')) {
-            // $car = Cars::find($request->car_id)->update($request->all());
             $files = [];
+          
+            // $car = Cars::find($request->car_id)->update($request->all());
+            
             if ($request->hasfile('filenames')) {
                 foreach ($request->file('filenames') as $file) {
                     $name = time() . rand(1, 100) . '.' . $file->extension();
@@ -198,16 +213,21 @@ class CarsAjaxController extends Controller
             $car->path = $json_ncode;
             $car->model = $request->input('model');
             $car->year = $request->input('year');
-            $car->book_date = $request->input('book_date'); /*temporary sa rate*/
+            $car->book_date = $request->input('rate'); /*temporary sa rate*/
             $car->location = $request->input('location');
             $car->vehicle_type = $request->input('vehicle_type');
+            $car->transmission_type = $request->input('transmission_type');
+            $car->fuel_type = $request->input('fuel_type');
             $car->save();
         }
 
         $msg_suc = 'Cars updated successfully' . $mssg;
         return redirect('/dashboard')->with('success', 'Cars updated successfully!' . $mssg,);
     }
-
+    /* params user and login or registration
+        user: cebucarbnb
+        pass:testing123
+    */
     public function srchlocation(Request $request){
         return 'searching';
     }

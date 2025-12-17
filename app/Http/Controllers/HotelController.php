@@ -35,4 +35,14 @@ class HotelController extends Controller
         
         return view('pages.moalboal', compact('tours', 'title'));
     }
+
+    public function santafe(){
+        $title = 'Santa Fe';
+        $tours = DB::table('files')
+        ->where('category', [1])
+        ->where('path', '=', 'santafe')
+        ->get();
+        
+        return view('pages.santafe', compact('tours', 'title'));
+    }
 }

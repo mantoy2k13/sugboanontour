@@ -14,7 +14,7 @@
 					</div>
 				@endif
   </div>
-
+  
         <div class="row justify-content-center mb-5">
           <div class="col-md-7 heading-section text-center ftco-animate">
           	
@@ -32,7 +32,7 @@
                 
               <div class="col-md-3 d-flex ftco-animate">
                 <div class="blog-entry justify-content-end">
-                  <a href="{{ url('tourpackage')}}/{{$tour->id}}" class="block-20" style="background-image: url('carbnb/public/files/{{$img[0] }}');">
+                  <a href="{{ url('tourpackage')}}/{{$tour->id}}" class="block-20" style="background-image: url('{{ asset('files/'.$img[0]) }}');">
                   </a>
                   <div class="text pt-4">
                     <h4 class=""><a href="{{ url('tourpackage')}}/{{$tour->id}}" class='text-default '> {{ strtolower($tour->title)}}</a></h4>

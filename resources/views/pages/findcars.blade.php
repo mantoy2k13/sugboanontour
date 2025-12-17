@@ -10,20 +10,34 @@
 			</div>
 		</div> --}}
 		<div class="container">
-			<div class="row">
+			<div class='d-flex  justify-content-around'>
+				<div class='d-flex flex-column justify-content-center '>
 					@if(session('success'))
-					<div class="col-md-12 d-flex ">
+
 						<div class="alert alert-success" role="alert">
-							<p class='text-black'>{{ session('success') }}</p>
+							<p class='text-default'>{{ session('success') }}</p>
 						</div>
+
+					@endif
+					<div>
+						<h1 class='text-default'><span class="icon-mobile-phone"></span> <a href="tel:+63915 097 1513"
+								class='text-default'> 0915 097 1513</a></h1>
 					</div>
-				@endif
+
+					<div>
+						<h3 class="text-black">Cebu Car rental Community & Cars owners only</h3>
+					</div>
+				</div>
+
+			</div>
+			<div class="row">
+
 				@if(count($findcars) > 0)
 
 					@foreach($findcars as $keycar => $car)
 
 							<?php 
-										$car_img = json_decode($car->img, true);
+																													$car_img = json_decode($car->img, true);
 						if ($car->book_status == 1) {
 							$message_available = 'Available';
 							$text_color = 'text-white';
@@ -32,27 +46,67 @@
 							$text_color = 'text-danger';
 						}
 						$book_url = url('vehicle/' . $car->id);
-										?>
 
-							<div class="col-md-4" id="car{{$car->id}}">
+																		?>
+
+
+							<div class="col-md-3" id="car{{$car->id}}">
 								<div class="car-wrap rounded ftco-animate">
 									<div class="img rounded d-flex align-items-end"
 										style="background-image: url('{{asset('files/' . $car_img[0])}}');">
-										<h3 class='available font-weight-bolder {{$text_color}}'>{{$message_available}}</h3>
+										<h3 class='text-white available font-weight-bolder'>{{$car->name}}
+											{{$car->model}}
+										</h3>
 									</div>
 									<div class="text">
-										<h2 class="mb-0 text-default"><a href="car-single.html" class='text-default'>{{$car->name}}
-												{{$car->model}} </a></h2>
+										<div class='d-flex flex-row justify-content-center'>
+											<h2 class="mb-0 text-default"><a href="{{$book_url}}"
+													class='text-default text-decoration-none'> </a></h2>
+										</div>
+
 										<div class="d-flex flex-column  mb-3">
-											<p class="font-weight-bolder"> Rate: {{$car->rate}} <span class='font-weight-light'> /
-													day</span></p>
-											<p class='text-black'><span class="icon-map-o"></span>
-												{{strtoupper($car->location)}}
+											<p>
+												<img src="{{asset('images/loc.png')}}" alt="" class=""
+													style="width:20px;height:20px;" />
+												{{ $car->location }}
 											</p>
-											<p class='text-black'><span class="flaticon-car-seat"></span> 5 seats adult</p>
+
+
+
+											<div class='d-flex flex-row justify-content-between'>
+												<div class=''>
+													<p class='text-black'><span class="flaticon-car-seat text-default"></span>
+														{{ $car->vehicle_type }}
+													</p>
+												</div>
+												<div class=''>
+													<span class="flaticon-pistons text-default"> </span>  {{ $car->t_type }}
+												</div>
+											</div>
+											<div class='d-flex flex-row justify-content-between'>
+												<div class=''>
+													<p class='text-black'><span
+															class="flaticon-diesel text-default"></span>{{ $car->f_type }}
+
+													</p>
+												</div>
+											
+											</div>
+
+											<div class='d-flex flex-row justify-content-between border-top border-bottom pt-2'>
+												<div class=''>
+													<span class="icon-mobile-phone text-default"></span> <span
+														class="text-lg text-default font-weight-bold">{{ $car->phone }}</span>
+												</div>
+												<div class=''>
+													<span class="'text-default">Available </span>
+												</div>
+											</div>
+
 
 										</div>
-										<p class="d-flex mb-0 d-block"><a href="{{$book_url}}" class="btn btn-secondary py-2 ml-1">Book
+										<p class="d-flex mb-0 d-block"><a href="{{$book_url}}"
+												class="btn btn-secondary py-2 ml-1 w-100">Book
 												now</a>
 
 										</p>
@@ -69,6 +123,55 @@
 					</h3>
 
 				@endif
+
+				<div class='d-flex align-items-center justify-content-center'>
+
+					<div class='d-flex '>
+
+						<ul class='pagination'>
+
+							@if ($findcars->onFirstPage())
+								<li class="page-item disabled"><span class='page-link'> Previous</span></li>
+							@else
+								<li class='page-item'>
+									<a class="page-link" href="{{ $findcars->withQueryString()->previousPageUrl() }}">Prev</a>
+								</li>
+							@endif
+
+
+
+							@foreach ($findcars as $element)
+
+								@if (is_string($element))
+									<li class="page-item disabled"><span>{{ $element }}</span></li>
+								@endif
+
+
+
+								@if (is_array($element))
+									@foreach ($element as $page => $url)
+										@if ($page == $findcars->currentPage())
+											<li class="page-item active"><span>{{ $page }}</span></li>
+										@else
+											<li class='page-item'><a href="{{ $url }}" class='page-link'>{{ $page }}</a></li>
+										@endif
+									@endforeach
+								@endif
+							@endforeach
+
+
+
+							@if ($findcars->hasMorePages())
+								<li class='page-item'>
+									<a class="page-link" href="{{ $findcars->withQueryString()->nextPageUrl() }}">Next</a>
+								</li>
+							@else
+								<li class="page-link"><span>Next</span></li>
+							@endif
+						</ul>
+					</div>
+				</div>
+				<!-- end div for pagination-->
 
 			</div>
 
