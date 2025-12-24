@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')
+@section('container')
 	<?php 
 											$imgs = json_decode($trpackage->name, true);
 	$tourpackage = ($trpackage->id) ? $trpackage->id : 0;

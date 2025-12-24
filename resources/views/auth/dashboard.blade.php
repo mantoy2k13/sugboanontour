@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')
+@section('container')
 	<section class="ftco-section ftco-cart">
 
 		<div class="container py-5">

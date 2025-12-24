@@ -23,29 +23,9 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
 
     $title = 'cebucarbnb';
-    $findcars = DB::table('cars as c')
-        ->select(
-            'c.vehicle_name as name',
-            'c.path as img',
-            'c.location as location',
-            'c.book_date as rate',
-            'c.year as year',
-            'c.vehicle_type as vehicle_type',
-            'c.model as model',
-            'c.id as id',
-            'c.book_status as book_status',
-            'c.transmission_type as t_type',
-            'c.fuel_type as f_type',
-            'u.phone as phone',
-            'u.name as full_name',
-            'u.role as role'
-        )
-        ->join('users as u', 'u.id', '=', 'c.user_id')
-        ->where('c.book_status', 1)
-        ->orderBy('id', 'DESC')
-        ->paginate(80);
+    
 
-    return view('welcome', compact('title', 'findcars'));
+    return view('welcome', compact('title'));
 });
 
 // Auth::routes();
@@ -67,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('bookinglist', [BookingVehicle::class, 'bookinglist']);
     Route::get('mybooking', [BookingVehicle::class, 'mybooking']);
     Route::get('dashboard', [CustomAuthController::class, 'dashboard']);
+    // scammer sa listahan
+    Route::get('scammerlists',[MultiFileUploadController::class, 'scammerlists']);
 });
 
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
@@ -104,3 +86,8 @@ Route::delete('tours/{id}', [MultiFileUploadController::class, 'delete'])->name(
 /*movies*/
 // deleting contacts tours
 Route::delete('usersdelete/{id}', [BookingController::class, 'delete']);
+
+// for scammer page bad renters
+Route::get('scammer', [MultiFileUploadController::class, 'scammer']);
+Route::post('storescammer', [MultiFileUploadController::class, 'storescammer']);
+Route::get('searchvehicle',[CarsAjaxController::class, 'searchvehicle']);

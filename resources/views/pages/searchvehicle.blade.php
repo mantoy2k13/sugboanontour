@@ -11,7 +11,7 @@
 		</div> --}}
 		<div class="container">
 			<div class='d-flex  justify-content-around'>
-				<div class='d-flex flex-column justify-content-center '>
+				<div class='d-flex '>
 					@if(session('success'))
 
 						<div class="alert alert-success" role="alert">
@@ -19,25 +19,52 @@
 						</div>
 
 					@endif
-					<div>
-						<h1 class='text-default'><span class="icon-mobile-phone"></span> <a href="tel:+63915 097 1513"
-								class='text-default'> 0915 097 1513</a></h1>
-					</div>
-
-					<div>
-						<h3 class="text-black">Cebu Car rental Community & Cars owners only</h3>
-					</div>
+					<h1 class='text-default'><span class="icon-mobile-phone"></span> <a href="tel:+63915 097 1513"
+							class='text-default'> 0915 097 1513</a></h1>
 				</div>
 
 			</div>
 			<div class="row">
+
+				<div class="p-4">
+					<form class="airbnb-search-form" action="{{url('searchvehicle')}}" method="GET">
+						<div class="search-fields">
+							<div class="search-field location">
+								<label for="location">Address</label>
+								<input type="text" name='vehicle_address' id="location" placeholder="Search destinations" />
+							</div>
+							<div class="search-field name">
+								<label for="location">Name vehicle</label>
+								<input type="text" name ="search_vehicle" id="location" placeholder="Search destinations" />
+							</div>
+							<div class="search-field dates">
+								<select name="vehicle_type" id="" class="form-control border-0">
+									<option value=""> Please select vehicle type </option>
+									<option value="sedan"> Sedan</option>
+									<option value="suv"> SUV</option>
+									<option value="van"> Van</option>
+									<option value="hatchback">Hatchback</option>
+									<option value="crossover">Cross Over</option>
+									<option value="pickup">Pick Up</option>
+									<option value="coaster">Coaster</option>
+								</select>
+							</div>
+
+						</div>
+						<button type="submit" class="search-button">
+							<!-- Magnifying Glass Icon (use an SVG or icon library) -->
+							🔍
+						</button>
+					</form>
+				</div>
+
 
 				@if(count($findcars) > 0)
 
 					@foreach($findcars as $keycar => $car)
 
 							<?php 
-																													$car_img = json_decode($car->img, true);
+																																													$car_img = json_decode($car->img, true);
 						if ($car->book_status == 1) {
 							$message_available = 'Available';
 							$text_color = 'text-white';
@@ -47,13 +74,31 @@
 						}
 						$book_url = url('vehicle/' . $car->id);
 
-																		?>
+																																		?>
 
+							<?php 
+																																		if ($car->vehicle_type == 'sedan') {
+							$stndrate = 1700;
+							$seaters = 5;
+						} else if ($car->vehicle_type == 'hatchback') {
+							$seaters = 5;
+							$stndrate = 1500;
+						} else if ($car->vehicle_type == 'suv') {
+							$stndrate = 2500;
+							$seaters = 8;
+						} else if ($car->vehicle_type == 'van') {
+							$stndrate = 3500;
+							$seaters = 15;
+						} else {
+							$seaters = 5;
+							$stndrate = 1700;
+						}	
+																																																	?>
 
 							<div class="col-md-3" id="car{{$car->id}}">
 								<div class="car-wrap rounded ftco-animate">
-									<div class="img rounded d-flex align-items-end"
-										style="background-image: url('{{asset('files/' . $car_img[0])}}');">
+									<div class="img rounded d-flex align-items-end" style="background-image:
+																									 url('{{ asset('files/' . $car_img[0]) }}');">
 										<h3 class='text-white available font-weight-bolder'>{{$car->name}}
 											{{$car->model}}
 										</h3>
@@ -75,34 +120,57 @@
 
 											<div class='d-flex flex-row justify-content-between'>
 												<div class=''>
-													<p class='text-black'><span class="flaticon-car-seat text-default"></span>
-														{{ $car->vehicle_type }}
+													<p class='text-black'><span
+															class="flaticon-car-seat text-default"></span>{{$seaters}}
+														seater<span class="flaticon- text-default"></span>
 													</p>
 												</div>
 												<div class=''>
-													<span class="flaticon-pistons text-default"> </span>  {{ $car->t_type }}
+													<span class="flaticon-pistons text-default"> </span> {{ ucfirst($car->t_type) }}
 												</div>
 											</div>
 											<div class='d-flex flex-row justify-content-between'>
 												<div class=''>
 													<p class='text-black'><span
-															class="flaticon-diesel text-default"></span>{{ $car->f_type }}
+															class="flaticon-diesel text-default"></span>{{ ucfirst($car->f_type) }}
 
 													</p>
 												</div>
-											
+												<div class=''>
+
+													<span class="flaticon-car text-default"> </span> {{ ucfirst($car->vehicle_type) }}
+												</div>
 											</div>
 
 											<div class='d-flex flex-row justify-content-between border-top border-bottom pt-2'>
 												<div class=''>
-													<span class="icon-mobile-phone text-default"></span> <span
-														class="text-lg text-default font-weight-bold">{{ $car->phone }}</span>
+													<img src="{{asset('images/clock-five.png')}}" alt="" style='width:16px;height:16px'
+														class='text-default' /> 1 day
 												</div>
 												<div class=''>
-													<span class="'text-default">Available </span>
+													<p class='font-weight-bolder'>
+														<?php 
+
+																																		?>
+														PHP {{number_format($stndrate)}}
+													</p>
 												</div>
 											</div>
+											{{-- end rate --}}
+											<div class='d-flex flex-row justify-content-center border-top border-bottom pt-2'>
+												<h3>
+													<span class="icon-mobile-phone text-default"></span> <span
+														class="text-lg text-default font-weight-bold">
+														@if($car->role == 2)
+															{{ $ph_subs = $car->phone }}
 
+														@else
+
+															{{  $ph_subs = substr_replace($car->phone, "xxx", -3) }}
+														@endif
+
+												</h3>
+											</div>
 
 										</div>
 										<p class="d-flex mb-0 d-block"><a href="{{$book_url}}"

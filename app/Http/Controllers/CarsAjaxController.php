@@ -108,9 +108,9 @@ class CarsAjaxController extends Controller
                 'u.phone as phone'
             )
             ->join('users as u', 'u.id', '=', 'c.user_id')
-            ->where('c.book_status',1)
+            ->where('c.book_status', 1)
             ->paginate(20);
-        
+
         return view('pages.findcars', ['findcars' => $findcars, 'title' => $title]);
     }
 
@@ -176,18 +176,18 @@ class CarsAjaxController extends Controller
 
     public function updateall(Request $request)
     {
-        
-         $this->validate($request, [
+
+        $this->validate($request, [
             'filenames' => 'required',
             'filenames.*' => 'image',
             'rate'          => 'required|numeric'
         ]);
-        
+
         if ($request->has('car_id')) {
             $files = [];
-          
+
             // $car = Cars::find($request->car_id)->update($request->all());
-            
+
             if ($request->hasfile('filenames')) {
                 foreach ($request->file('filenames') as $file) {
                     $name = time() . rand(1, 100) . '.' . $file->extension();
@@ -228,7 +228,8 @@ class CarsAjaxController extends Controller
         user: cebucarbnb
         pass:testing123
     */
-    public function srchlocation(Request $request){
+    public function srchlocation(Request $request)
+    {
         return 'searching';
     }
 
@@ -243,7 +244,56 @@ class CarsAjaxController extends Controller
         //
     }
 
+    // searching for vehicle informations
+    public function searchvehicle(Request $request)
+    {
+        if (empty($request->input('search_vehicle'))) {
 
+            $vehicle_name = '';
+        } else {
+            $vehicle_name = $request->input('search_vehicle');
+        }
+        
+        if (empty($request->input('vehicle_type'))) {
+            $vehicle_type = '';
+        } else {
+            $vehicle_type = $request->input('vehicle_type');
+        }
+
+        if (empty($request->input('vehicle_address'))) {
+            $vehicle_address = '';
+        } else {
+            $vehicle_address = $request->input('vehicle_address');
+        }
+
+        $findcars = DB::table('cars as c')
+            ->select(
+                'c.vehicle_name as name',
+                'c.path as img',
+                'c.location as location',
+                'c.book_date as rate',
+                'c.year as year',
+                'c.vehicle_type as vehicle_type',
+                'c.model as model',
+                'c.id as id',
+                'c.book_status as book_status',
+                'c.transmission_type as t_type',
+                'c.fuel_type as f_type',
+                'u.phone as phone',
+                'u.name as full_name',
+                'u.role as role'
+            )
+            ->join('users as u', 'u.id', '=', 'c.user_id')
+            ->where([
+                ['c.vehicle_type', 'LIKE', '%' . $vehicle_type . '%'],
+                ['c.vehicle_name', 'LIKE', '%' . $vehicle_name . '%'],
+                ['c.location', 'LIKE', '%' . $vehicle_address . '%']
+            ])
+            ->get();
+        echo '<pre>';
+        print_r($findcars);
+        echo '</pre>';
+    }
 
     public function delete($id, Request $request)
     {

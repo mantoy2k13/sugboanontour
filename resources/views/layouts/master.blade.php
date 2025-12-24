@@ -21,9 +21,9 @@
     
 @include('partials.header')
 
-<main class="container">
-    @yield('content')
-</main>
+ <div class="row m-0 p-0">
+        @yield('container') {{-- This is the main content area --}}
+  </div>
 
 @include('partials.footer')
 

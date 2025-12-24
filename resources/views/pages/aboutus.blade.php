@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')
+@section('container')
     <section class="ftco-section ftco-about ">
         <div class="container">
             <div class="row no-gutters p-5">

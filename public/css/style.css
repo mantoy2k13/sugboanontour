@@ -4,6 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ 
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -9981,3 +9982,171 @@ h3.available{
     
     left: 20%;
 }
+/*start style like bnb*/
+
+.form-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    
+}
+
+h2 {
+    color: #222222;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #222222;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.col-50 {
+    flex: 1;
+}
+
+button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #50b848; /* Airbnb's primary color */
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: green;
+}
+
+/* Responsiveness for smaller screens */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .col-50 {
+        margin-bottom: 1rem;
+    }
+    
+    .form-container {
+        margin: 1rem;
+    }
+}
+
+/* cuztomise search air bnb style*/
+
+.airbnb-search-form {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 40px; /* Pill shape */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Airbnb-style shadow */
+  padding: 5px 5px 5px 24px; /* Adjust padding as needed */
+  max-width: 100%;
+  margin: 0px auto;
+}
+
+.search-fields {
+  display: flex;
+  flex-grow: 1;
+}
+
+.search-field {
+  padding: 0 16px;
+  cursor: pointer;
+  flex-grow: 1;
+  /* Add subtle borders between fields */
+  border-right: 1px solid #ddd;
+}
+
+.search-field:last-child {
+  border-right: none;
+}
+
+.search-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: #222;
+}
+
+.search-field input {
+  border: none;
+  font-size: 14px;
+  width: 100%;
+  background: transparent;
+}
+
+.search-field input:focus {
+  outline: none;
+}
+
+.search-button {
+  background: #50b848; /* Airbnb primary color */
+  border: none;
+  border-radius: 50%; /* Circular button */
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+}
+
+.image-container {
+  position: relative; /* Container acts as reference for absolute positioning */
+  display: inline-block; /* Ensures the container wraps the image tightly */
+}
+
+.notification-badge {
+  position: absolute; /* Position the badge relative to the container */
+  top: 8px; /* Adjust top padding as needed */
+  right: 16px; /* Adjust right padding as needed */
+  /* Additional styling for the badge */
+  background-color: red;
+  color: white;
+  border-radius: 50%; /* Makes it a circle */
+  padding: 4px 8px;
+  font-size: 14px;
+  text-align: center;
+}
+.text-airbnb{
+  color:#e0004d;
+}
+ /*end style airbnb* /
+/*end style bnb*/

@@ -1,6 +1,6 @@
 @extends('auth.dashboard')
 
-@section('content')
+@section('container')
 
 <main class="signup-form " style="padding-top:8rem;">
     <div class="cotainer">

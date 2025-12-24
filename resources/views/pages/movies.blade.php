@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')
+@section('container')
 
 <div class="container">
     <div class="embed-responsive embed-responsive-21by9">

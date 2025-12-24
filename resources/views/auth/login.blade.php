@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('content')
+@section('container')
     <main class="login-form">
         <div class="cotainer" style="margin-top:10rem;">
             <div class="row justify-content-center">

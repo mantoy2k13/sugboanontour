@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')
+@section('container')
 
 <div class="container">
   <div class='row justify-content-center'>
@@ -20,7 +20,7 @@
 							class='text-default'><span class="icon-mobile-phone"></span> 0915 097 1513</a></h2>
           </div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex px-4">
           
               @foreach($tours as $tour)
               <?php 
@@ -28,7 +28,7 @@
                 
               ?>
                 
-              <div class="col-md-3 d-flex ftco-animate">
+              <div class="col-md-2 d-flex ftco-animate ">
                 <div class="blog-entry justify-content-end">
                   <a href="{{ url('tourpackage')}}/{{$tour->id}}" class="block-20" style="background-image: url('{{ asset('files/'.$img[0]) }}');">
                   </a>

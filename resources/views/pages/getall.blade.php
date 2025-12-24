@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('content')
+@section('container')
 
     <section class="ftco-section contact-section">
         <div class="container">
