@@ -1,43 +1,69 @@
 @extends('layouts.master')
 @section('container')
 
-	<section class="ftco-section bg-light">
-		{{-- <div class="col-lg-8 ftco-animate">
-			<div class="text w-100 text-center mb-md-5 pb-md-5">
-				<h1 class="mb-2">Direct call</h1>
-				<h2 class="mb-2"><a href="tel:+63915 097 1513" style="color:#FF5E00;"> 0915 097 1513</a> </h2>
-				<p style="font-size: 18px;">Less hustle </p>
+	<div class="d-flex justify-content-center align-items-center pb-5" style="background-image: url('{{ asset('images/default70e9bbf2.png') }}');
+					background-repeat: no-repeat;
+					background-size: 100% 100%;">
+
+		<div class="pt-7 pb-2">
+			<h2 class="text-white">Travel easier with <span class="text-default"> CebuCarbnb </span></h2>
+			<div class="pt-2 pb-2">
+				<h2 class="text-white">Book Now & Drive safe</h2>
 			</div>
-		</div> --}}
-		<div class="container">
-			<div class='d-flex  justify-content-around'>
-				<div class='d-flex flex-column justify-content-center '>
-					@if(session('success'))
+			<form action="{{url('searchvehicle')}}" method="GET" class="form-container p-lg-4 p-sm-0">
+				<div class="d-flex flex-wrap">
+					<div class="form-group col-lg-auto col-sm-12">
 
-						<div class="alert alert-success" role="alert">
-							<p class='text-default'>{{ session('success') }}</p>
-						</div>
-
-					@endif
-					<div>
-						<h1 class='text-default'><span class="icon-mobile-phone"></span> <a href="tel:+63915 097 1513"
-								class='text-default'> 0915 097 1513</a></h1>
+						<input type="text" id="location" class="rounded-pill " name="vehicle_address"
+							placeholder="Location address">
 					</div>
 
-					<div>
-						<h3 class="text-black">Cebu Car rental Community & Cars owners only</h3>
+
+					<div class="form-group col-lg-auto col-sm-12">
+
+						<input type="text" id="location" name="search_vehicle" class="rounded-pill"
+							placeholder="Vehicle Name">
 					</div>
+
+
+
+					<div class="form-group col-lg-auto col-sm-12 ">
+
+						<select id="guests" name="vehicle_type" class="rounded-pill form-control ">
+							<option value=""> Please select vehicle type </option>
+							<option value="sedan"> Sedan</option>
+							<option value="suv">SUV</option>
+							<option value="van">Van</option>
+							<option value="hatchback">Hatchback</option>
+							<option value="crossover">Cross Over</option>
+							<option value="pickup">Pick Up</option>
+							<option value="coaster">Coaster</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-success ">Search</button>
+					</div>
+
 				</div>
 
+			</form>
+		</div>
+	</div>
+	
+		<div class="row">
+			
+			@if(count($findcars) > 0)
+			<div class="d-flex justify-content-center align-items-center pt-4 pb-2">
+					<div class="d-flex flex-wrap">
+						<h3 class="text-default">
+						Total {{ count($findcars) }}	vehicle found
+					</h3>
+					</div>
 			</div>
-			<div class="row">
-
-				@if(count($findcars) > 0)
-
 					@foreach($findcars as $keycar => $car)
 
 							<?php 
-																													$car_img = json_decode($car->img, true);
+																									$car_img = json_decode($car->img, true);
 						if ($car->book_status == 1) {
 							$message_available = 'Available';
 							$text_color = 'text-white';
@@ -47,13 +73,33 @@
 						}
 						$book_url = url('vehicle/' . $car->id);
 
-																		?>
+														?>
 
+							<?php 
+														if ($car->vehicle_type == 'sedan') {
+							$stndrate = 1700;
+							$seaters = 5;
+						}
+						else if ($car->vehicle_type == 'hatchback'){
+							$seaters = 5;
+							$stndrate = 1500;
+						}
+						else if ($car->vehicle_type == 'suv') {
+							$stndrate = 2500;
+							$seaters = 8;
+						} else if ($car->vehicle_type == 'van') {
+							$stndrate = 3500;
+							$seaters = 15;
+						} else {
+							$seaters = 5;
+							$stndrate = 1700;
+						}	
+																													?>
 
-							<div class="col-md-3" id="car{{$car->id}}">
+							<div class="col-md-2" id="car{{$car->id}}">
 								<div class="car-wrap rounded ftco-animate">
 									<div class="img rounded d-flex align-items-end"
-										style="background-image: url('{{asset('files/' . $car_img[0])}}');">
+										style="background-image: url('{{asset('carbnb/public/files/' . $car_img[0])}}');">
 										<h3 class='text-white available font-weight-bolder'>{{$car->name}}
 											{{$car->model}}
 										</h3>
@@ -75,34 +121,55 @@
 
 											<div class='d-flex flex-row justify-content-between'>
 												<div class=''>
-													<p class='text-black'><span class="flaticon-car-seat text-default"></span>
-														{{ $car->vehicle_type }}
+													<p class='text-black'><span
+															class="flaticon-car-seat text-default"></span>{{$seaters}}
+														seater<span class="flaticon- text-default"></span>
 													</p>
 												</div>
 												<div class=''>
-													<span class="flaticon-pistons text-default"> </span>  {{ $car->t_type }}
+													<span class="flaticon-pistons text-default"> </span> {{ ucfirst($car->t_type) }}
 												</div>
 											</div>
 											<div class='d-flex flex-row justify-content-between'>
 												<div class=''>
-													<p class='text-black'><span
-															class="flaticon-diesel text-default"></span>{{ $car->f_type }}
+													<p class='text-black'><span class="flaticon-diesel text-default"></span>{{ ucfirst($car->f_type) }}
 
 													</p>
 												</div>
-											
+												<div class=''>
+
+													<span class="flaticon-car text-default"> </span> {{ ucfirst($car->vehicle_type) }}
+												</div>
 											</div>
 
 											<div class='d-flex flex-row justify-content-between border-top border-bottom pt-2'>
 												<div class=''>
-													<span class="icon-mobile-phone text-default"></span> <span
-														class="text-lg text-default font-weight-bold">{{ $car->phone }}</span>
+													<img src="{{asset('images/clock-five.png')}}" alt="" style='width:16px;height:16px'
+														class='text-default' /> 1 day
 												</div>
 												<div class=''>
-													<span class="'text-default">Available </span>
+													<p class='font-weight-bolder'>
+														<?php 
+														
+														?>
+														PHP {{number_format($stndrate)}}</p>
 												</div>
 											</div>
-
+											{{-- end rate --}}
+											<div class='d-flex flex-row justify-content-center border-top border-bottom pt-2'>
+												<h3>
+												<span class="icon-mobile-phone text-default"></span> <span
+														class="text-lg text-default font-weight-bold">
+												    @if($car->role == 2)
+													{{ $ph_subs = $car->phone }}
+													
+													@else
+													
+													{{  $ph_subs = substr_replace($car->phone, "xxxxx", -5) }}
+													@endif
+														</span>
+												</h3>
+											</div>
 
 										</div>
 										<p class="d-flex mb-0 d-block"><a href="{{$book_url}}"
@@ -118,65 +185,22 @@
 					@endforeach
 				@else
 
-					<h3 class="text-default">
-						No available as of moment, Congrats fullybook!
+				<div class="d-flex justify-content-center align-items-center pt-2">
+					<div class="d-flex flex-wrap">
+						<h3 class="text-default">
+						No results search found.
 					</h3>
-
-				@endif
-
-				<div class='d-flex align-items-center justify-content-center'>
-
-					<div class='d-flex '>
-
-						<ul class='pagination'>
-
-							@if ($findcars->onFirstPage())
-								<li class="page-item disabled"><span class='page-link'> Previous</span></li>
-							@else
-								<li class='page-item'>
-									<a class="page-link" href="{{ $findcars->withQueryString()->previousPageUrl() }}">Prev</a>
-								</li>
-							@endif
-
-
-
-							@foreach ($findcars as $element)
-
-								@if (is_string($element))
-									<li class="page-item disabled"><span>{{ $element }}</span></li>
-								@endif
-
-
-
-								@if (is_array($element))
-									@foreach ($element as $page => $url)
-										@if ($page == $findcars->currentPage())
-											<li class="page-item active"><span>{{ $page }}</span></li>
-										@else
-											<li class='page-item'><a href="{{ $url }}" class='page-link'>{{ $page }}</a></li>
-										@endif
-									@endforeach
-								@endif
-							@endforeach
-
-
-
-							@if ($findcars->hasMorePages())
-								<li class='page-item'>
-									<a class="page-link" href="{{ $findcars->withQueryString()->nextPageUrl() }}">Next</a>
-								</li>
-							@else
-								<li class="page-link"><span>Next</span></li>
-							@endif
-						</ul>
 					</div>
 				</div>
-				<!-- end div for pagination-->
+					
 
-			</div>
-
+				@endif
 		</div>
-	</section>
+	
+
+
+
+
 @endsection
 
 @push('head')

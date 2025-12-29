@@ -13,7 +13,7 @@
 ?>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item <?=$active = ($title == 'home') ? 'active' : '';?>"><a href="{{url('/') }}"
-						class="nav-link">Home</a></li>
+						class="nav-link"><span class="text-default">Book Now</span> </a></li>
 				<li class="nav-item <?=$active = ($title == 'cebutour') ? 'active' : '';?>"><a
 						href="{{url('cebutour')}}" class="nav-link ">Cebu Tours</a></li>
 				<li class="nav-item">

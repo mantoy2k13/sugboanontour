@@ -7825,6 +7825,9 @@ button.bg-dark:focus {
   .pl-xl-5,
   .px-xl-5 {
     padding-left: 3rem !important; }
+  .pt-7{
+    padding-top: 7rem !important;
+  }
   .m-xl-n1 {
     margin: -0.25rem !important; }
   .mt-xl-n1,
@@ -9988,8 +9991,8 @@ h3.available{
     background-color: #fff;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    box-shadow: 0 4px 12px #50b848;
+    
     
 }
 

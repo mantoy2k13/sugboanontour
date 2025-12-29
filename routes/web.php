@@ -23,9 +23,27 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
 
     $title = 'cebucarbnb';
-    
+      $findcars = DB::table('cars as c')
+            ->select(
+                'c.vehicle_name as name',
+                'c.path as img',
+                'c.location as location',
+                'c.book_date as rate',
+                'c.year as year',
+                'c.vehicle_type as vehicle_type',
+                'c.model as model',
+                'c.id as id',
+                'c.book_status as book_status',
+                'c.transmission_type as t_type',
+                'c.fuel_type as f_type',
+                'u.phone as phone'
+            )
+            ->join('users as u', 'u.id', '=', 'c.user_id')
+            ->where('c.book_status', 1)
+            ->limit(6)
+            ->get();
 
-    return view('welcome', compact('title'));
+    return view('welcome', ['title' =>$title, 'findcars' => $findcars]);
 });
 
 // Auth::routes();

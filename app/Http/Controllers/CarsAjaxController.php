@@ -247,6 +247,7 @@ class CarsAjaxController extends Controller
     // searching for vehicle informations
     public function searchvehicle(Request $request)
     {
+        $title = 'search vehicle';
         if (empty($request->input('search_vehicle'))) {
 
             $vehicle_name = '';
@@ -290,9 +291,8 @@ class CarsAjaxController extends Controller
                 ['c.location', 'LIKE', '%' . $vehicle_address . '%']
             ])
             ->get();
-        echo '<pre>';
-        print_r($findcars);
-        echo '</pre>';
+        return view('pages.findcars', ['title' => $title, 'findcars'=>$findcars]);
+        
     }
 
     public function delete($id, Request $request)
